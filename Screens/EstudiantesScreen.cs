@@ -9,6 +9,11 @@ public static class EstudiantesMenu
 
   public static void VerEstudiante()
   {
+    if (estudiantes == null || estudiantes.Length == 0)
+    {
+      Console.WriteLine("No hay estudiantes cargados.");
+      return;
+    }
     int i = 0;
     foreach (Estudiante est in estudiantes)
     {
@@ -25,11 +30,11 @@ public static class EstudiantesMenu
 
     Estudiante estudiante = new Estudiante { Nombre = nombre };
 
-    EstudiantesData.CrearEstudiante(estudiante);
+    estudiantes = EstudiantesData.CrearEstudiante(estudiante) ?? new Estudiante[0];
   }
   public static void EditarEstudiante()
   {
-    Console.Write("Indice del estudiante");
+    Console.Write("Indice del estudiante: ");
     string? iInput = Console.ReadLine();
 
     if (Int32.TryParse(iInput, out int i))
@@ -43,18 +48,18 @@ public static class EstudiantesMenu
 
       if (!string.IsNullOrEmpty(nombre)) estudiante.Nombre = nombre;
 
-      EstudiantesData.ActualizarEstudiante(i, estudiante);
+      estudiantes = EstudiantesData.ActualizarEstudiante(i, estudiante) ?? new Estudiante[0];
     }
     else Console.WriteLine("El valor es invalido intente nuevamente.");
   }
   public static void BorrarEstudiante()
   {
-    Console.Write("Indice del estudiante");
+    Console.Write("Indice del estudiante: ");
     string? iInput = Console.ReadLine();
 
     if (Int32.TryParse(iInput, out int i))
     {
-      EstudiantesData.EliminarEstudiante(i);
+      estudiantes = EstudiantesData.EliminarEstudiante(i) ?? new Estudiante[0];
     }
     else Console.WriteLine("El valor es invalido intente nuevamente.");
   }

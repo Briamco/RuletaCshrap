@@ -4,6 +4,22 @@ namespace Ruleta.Data;
 
 public static class EstudiantesData
 {
+  public static bool ValidarIndice(int i)
+  {
+    if (estudiantes == null || estudiantes.Length == 0)
+    {
+      Console.WriteLine("No hay estudiantes cargados.");
+      return false;
+    }
+
+    if (i < 0 || i >= estudiantes.Length)
+    {
+      Console.WriteLine("Índice fuera de rango.");
+      return false;
+    }
+
+    return true;
+  }
   public static Estudiante[]? estudiantes;
   public static void CargarEstudiantes()
   {
@@ -12,43 +28,34 @@ public static class EstudiantesData
 
   public static Estudiante? CargarEstudiantePorIndice(int i)
   {
-    if (estudiantes == null)
-    {
-      Console.WriteLine("No hay estudiantes cargados.");
-      return null;
-    }
+    if (!ValidarIndice(i)) return null;
 
-    if (i < 0 || i >= estudiantes.Length)
-    {
-      Console.WriteLine("Índice fuera de rango.");
-      return null;
-    }
-
-    return estudiantes[i];
+    return estudiantes?[i];
   }
 
   public static void GuardarEstudiantes()
   {
     if (estudiantes == null)
     {
-      Console.WriteLine("Índice inválido. No se pudo guardar los estudiantes.");
+      Console.WriteLine("No hay estudiantes para guardar.");
       return;
     }
 
-    if (estudiantes != null) ArchivoHelper.GuardarEstudiantes(estudiantes);
+    ArchivoHelper.GuardarEstudiantes(estudiantes);
   }
 
-  public static void CrearEstudiante(Estudiante estudiante)
+  public static Estudiante[]? CrearEstudiante(Estudiante estudiante)
   {
     if (estudiante == null)
     {
       Console.WriteLine("No se pudo crear el estudiante. Intente nuevamente.");
-      return;
+      return estudiantes;
     }
 
     if (estudiantes == null)
     {
       estudiantes = new Estudiante[] { estudiante };
+      return estudiantes;
     }
     else
     {
@@ -59,33 +66,36 @@ public static class EstudiantesData
       }
       nuevoArreglo[estudiantes.Length] = estudiante;
       estudiantes = nuevoArreglo;
+      return estudiantes;
     }
   }
 
-
-  public static void ActualizarEstudiante(int i, Estudiante estudiante)
+  public static Estudiante[]? ActualizarEstudiante(int i, Estudiante estudiante)
   {
-    if (estudiantes == null || i < 0 || i >= estudiantes.Length)
+    if (estudiantes == null)
     {
-      Console.WriteLine("Índice inválido. No se pudo actualizar el estudiante.");
-      return;
+      Console.WriteLine("No hay estudiantes cargados.");
+      return null;
     }
+    if (!ValidarIndice(i)) return null;
     if (estudiante == null)
     {
       Console.WriteLine("No se pudo actualizar el estudiante. Intente nuevamente.");
-      return;
+      return estudiantes;
     }
 
     estudiantes[i] = estudiante;
+    return estudiantes;
   }
 
-  public static void EliminarEstudiante(int i)
+  public static Estudiante[]? EliminarEstudiante(int i)
   {
-    if (estudiantes == null || i < 0 || i >= estudiantes.Length)
+    if (estudiantes == null)
     {
-      Console.WriteLine("Índice inválido. No se pudo eliminar el estudiante.");
-      return;
+      Console.WriteLine("No hay estudiantes cargados.");
+      return null;
     }
+    if (!ValidarIndice(i)) return null;
 
     Estudiante[] nuevoArreglo = new Estudiante[estudiantes.Length - 1];
     int j = 0;
@@ -94,7 +104,7 @@ public static class EstudiantesData
       if (k == i) continue;
       nuevoArreglo[j++] = estudiantes[k];
     }
-
     estudiantes = nuevoArreglo;
+    return estudiantes;
   }
 }
