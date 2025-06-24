@@ -1,3 +1,4 @@
+using Ruleta.Services;
 using Ruleta.Utils;
 
 public static class MainMenu
@@ -7,11 +8,10 @@ public static class MainMenu
     switch (op)
     {
       case 1:
+        RuletaService.IniciarRuleta();
         break;
       case 2:
         EstudiantesMenu.MainScreen();
-        break;
-      case 3:
         break;
       default:
         Console.WriteLine("Ninguna opcion es valida, intente nuevamente");

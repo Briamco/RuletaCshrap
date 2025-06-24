@@ -17,7 +17,7 @@ public static class EstudiantesMenu
     int i = 0;
     foreach (Estudiante est in estudiantes)
     {
-      Console.WriteLine($"{i}: {est.Nombre}");
+      Console.WriteLine($"{i}: {est.Nombre} - Roles: {string.Join(", ", est.Rol ?? new string[0])}");
       i++;
     }
   }
