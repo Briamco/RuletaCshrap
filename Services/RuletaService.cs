@@ -42,6 +42,16 @@ public static class RuletaService
       Console.WriteLine($"{estudianteDev.Nombre}: {RolDev}");
       Console.WriteLine($"{estudianteFac.Nombre}: {RolFac}");
 
+      Pareja pareja = new Pareja
+      {
+        Nombre1 = estudianteDev.Nombre,
+        Rol1 = RolDev,
+        Nombre2 = estudianteFac.Nombre,
+        Rol2 = RolFac
+      };
+
+      ParejasData.AgregarPareja(pareja);
+
       Console.WriteLine("\nPresiona Enter para continuar o escribe 'salir' para terminar.");
       string input = Console.ReadLine()!;
       if (input.Trim().ToLower() == "salir") break;

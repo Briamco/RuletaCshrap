@@ -1,0 +1,64 @@
+using System.Net;
+using Ruleta.Models;
+
+namespace Ruleta.Data;
+
+public static class ParejasData
+{
+  public static Pareja[]? parejasActuales;
+  public static Pareja[][]? parejas;
+
+  public static Pareja[]? AgregarPareja(Pareja pareja)
+  {
+    if (pareja == null)
+    {
+      Console.WriteLine("No se pudo crear la pareja. Intente nuevamente.");
+      return parejasActuales;
+    }
+
+    if (parejasActuales == null)
+    {
+      parejasActuales = new Pareja[] { pareja };
+      return parejasActuales;
+    }
+    else
+    {
+      Pareja[] nuevoArreglo = new Pareja[parejasActuales.Length + 1];
+      for (int i = 0; i < parejasActuales.Length; i++)
+      {
+        nuevoArreglo[i] = parejasActuales[i];
+      }
+      nuevoArreglo[parejasActuales.Length] = pareja;
+      parejasActuales = nuevoArreglo;
+      return parejasActuales;
+    }
+
+  }
+
+  public static void CargarParejas()
+  {
+    parejas = ArchivoHelper.CargarHistorialesPorArchivo();
+  }
+
+  public static Pareja[]? CargarParejaPorIndice(int i)
+  {
+    if (parejas == null || i < 0 || i >= parejas.Length)
+    {
+      Console.WriteLine("Índice fuera de rango o no hay parejas cargadas.");
+      return null;
+    }
+
+    return parejas[i];
+  }
+
+  public static void GuardarParejas()
+  {
+    if (parejasActuales == null)
+    {
+      Console.WriteLine("No hay parejas para guardar.");
+      return;
+    }
+
+    ArchivoHelper.GuardarParejas(parejasActuales);
+  }
+}

@@ -22,6 +22,7 @@ public class Screen
         if (confirm == "S")
         {
           EstudiantesData.GuardarEstudiantes();
+          ParejasData.GuardarParejas();
           Console.WriteLine("Saliendo del programa...");
           break;
         }

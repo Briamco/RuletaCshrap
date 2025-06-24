@@ -12,3 +12,4 @@ C:\Users\cross\OneDrive\Desktop\itla\c#\Ruleta\obj\Debug\net9.0\refint\Ruleta.dl
 C:\Users\cross\OneDrive\Desktop\itla\c#\Ruleta\obj\Debug\net9.0\Ruleta.pdb
 C:\Users\cross\OneDrive\Desktop\itla\c#\Ruleta\obj\Debug\net9.0\Ruleta.genruntimeconfig.cache
 C:\Users\cross\OneDrive\Desktop\itla\c#\Ruleta\obj\Debug\net9.0\ref\Ruleta.dll
+C:\Users\cross\OneDrive\Desktop\itla\c#\Ruleta\obj\Debug\net9.0\Ruleta.sourcelink.json

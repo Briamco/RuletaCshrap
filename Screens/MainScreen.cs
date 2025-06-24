@@ -1,5 +1,4 @@
 using Ruleta.Services;
-using Ruleta.Utils;
 
 public static class MainMenu
 {
@@ -13,6 +12,9 @@ public static class MainMenu
       case 2:
         EstudiantesMenu.MainScreen();
         break;
+      case 3:
+        HistorialScreen.MainScreen();
+        break;
       default:
         Console.WriteLine("Ninguna opcion es valida, intente nuevamente");
         break;
@@ -24,6 +26,7 @@ public static class MainMenu
     Console.Clear();
     Console.WriteLine("1.Iniciar Ruleta");
     Console.WriteLine("2.Estudiantes");
+    Console.WriteLine("3.Historial");
     Console.WriteLine($"{exitInput}.Salir");
   }
 }
