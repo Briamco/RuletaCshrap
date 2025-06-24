@@ -17,9 +17,19 @@ public class Screen
 
       if (op == ExitInput)
       {
-        EstudiantesData.GuardarEstudiantes();
-        Console.WriteLine("Datos Guardados, Gracias...");
-        break;
+        Console.WriteLine("¿Está seguro que desea salir? (S/N)");
+        string? confirm = Console.ReadLine()?.Trim().ToUpper();
+        if (confirm == "S")
+        {
+          EstudiantesData.GuardarEstudiantes();
+          Console.WriteLine("Saliendo del programa...");
+          break;
+        }
+        else
+        {
+          Console.WriteLine("Operación cancelada. Volviendo al menú principal...");
+          continue;
+        }
       }
 
       MainMenu.Navigator(op);
