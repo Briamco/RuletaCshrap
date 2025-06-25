@@ -7,6 +7,7 @@ internal class Program
   {
     EstudiantesData.CargarEstudiantes();
     ParejasData.CargarParejas();
+    ConfigData.CargarCongif();
 
     Screen.ScreenMain();
   }

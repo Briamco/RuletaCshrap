@@ -15,6 +15,9 @@ public static class MainMenu
       case 3:
         HistorialScreen.MainScreen();
         break;
+      case 4:
+        ConfigScreen.MainScreen();
+        break;
       default:
         Console.WriteLine("Ninguna opcion es valida, intente nuevamente");
         break;
@@ -27,6 +30,7 @@ public static class MainMenu
     Console.WriteLine("1.Iniciar Ruleta");
     Console.WriteLine("2.Estudiantes");
     Console.WriteLine("3.Historial");
+    Console.WriteLine("4.Configuracion");
     Console.WriteLine($"{exitInput}.Salir");
   }
 }

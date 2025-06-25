@@ -23,6 +23,7 @@ public class Screen
         {
           EstudiantesData.GuardarEstudiantes();
           ParejasData.GuardarParejas();
+          ConfigData.GuardarConfig();
           Console.WriteLine("Saliendo del programa...");
           break;
         }

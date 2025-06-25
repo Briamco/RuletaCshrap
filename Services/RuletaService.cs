@@ -5,8 +5,9 @@ namespace Ruleta.Services;
 
 public static class RuletaService
 {
-  private const string RolDev = "Desarrollador en Vivo";
-  private const string RolFac = "Facilitador";
+  //Ruleta exploto
+  private static string RolDev = ConfigData.config.DevRol;
+  private static string RolFac = ConfigData.config.FacRol;
 
   public static void IniciarRuleta()
   {

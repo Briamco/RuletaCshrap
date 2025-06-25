@@ -6,6 +6,7 @@ public static class ArchivoHelper
   private const string RutaEstudiantes = "Storage/Estudiantes.txt";
   private const string RutaParejas = "Storage/Historial";
 
+  private const string RutaConfig = "Storage/Config.txt";
   public static void GuardarEstudiantes(Estudiante[] estudiantes)
   {
     using (StreamWriter write = new StreamWriter(RutaEstudiantes, false, Encoding.UTF8))
@@ -16,6 +17,7 @@ public static class ArchivoHelper
       }
     }
   }
+
 
   public static Estudiante[] CargarEstudiantes()
   {
@@ -104,5 +106,32 @@ public static class ArchivoHelper
     }
 
     return historial;
+  }
+  public static void GuardarConfig(Config config)
+  {
+    using (StreamWriter write = new StreamWriter(RutaConfig, false, Encoding.UTF8))
+    {
+      write.WriteLine(config.ToString());
+    }
+  }
+
+  public static Config? CargarCongif()
+  {
+
+    if (!File.Exists(RutaConfig))
+    {
+      return new Config();
+    }
+
+    string[] lineas = File.ReadAllLines(RutaConfig);
+
+    Console.WriteLine(new Config().ToString());
+    string[] datos = lineas[0].Split(',');
+
+    return new Config()
+    {
+      DevRol = datos[0],
+      FacRol = datos[1]
+    };
   }
 }
