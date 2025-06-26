@@ -42,7 +42,7 @@ public static class ArchivoHelper
     var archivos = Directory.GetFiles(RutaParejas, "historial_*.txt");
 
     // Obtener el número siguiente
-    int numero = archivos.Length + 1;
+    int numero = archivos.Length;
     string archivoNombre = Path.Combine(RutaParejas, $"historial_{numero}.txt");
 
     using (StreamWriter write = new StreamWriter(archivoNombre, false, Encoding.UTF8))
