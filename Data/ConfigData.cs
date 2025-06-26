@@ -1,12 +1,10 @@
-using Ruleta.Models;
-
 namespace Ruleta.Data;
 
 public static class ConfigData
 {
-  public static Config config = new Config { };
+  public static string[]? config;
 
-  public static Config? ModificarRoles(string Dev, string Fac)
+  public static string[]? ModificarRoles(string Dev, string Fac)
   {
     if (Dev == null || Fac == null)
     {
@@ -14,8 +12,13 @@ public static class ConfigData
       return null;
     }
 
-    config.DevRol = Dev;
-    config.FacRol = Fac;
+    if (config == null)
+    {
+      config = new string[2];
+    }
+
+    config[0] = Dev;
+    config[1] = Fac;
 
     Console.WriteLine("Roles modificados. Presione Enter para continuar.");
 
@@ -23,7 +26,7 @@ public static class ConfigData
   }
   public static void CargarCongif()
   {
-    ArchivoHelper.CargarCongif();
+    config = ArchivoHelper.CargarCongif();
   }
   public static void GuardarConfig()
   {

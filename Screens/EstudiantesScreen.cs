@@ -1,11 +1,10 @@
 using Ruleta.Data;
-using Ruleta.Models;
 using Ruleta.Screen;
 using Ruleta.Utils;
 
 public static class EstudiantesMenu
 {
-  public static Estudiante[] estudiantes = EstudiantesData.estudiantes ?? new Estudiante[0];
+  public static string[] estudiantes = EstudiantesData.estudiantes ?? new string[0];
 
   public static void VerEstudiante()
   {
@@ -15,9 +14,9 @@ public static class EstudiantesMenu
       return;
     }
     int i = 0;
-    foreach (Estudiante est in estudiantes)
+    foreach (string est in estudiantes)
     {
-      Console.WriteLine($"{i}: {est.Nombre} - Roles: {string.Join(", ", est.Rol ?? new string[0])}");
+      Console.WriteLine($"{i}: {est}");
       i++;
     }
   }
@@ -28,9 +27,7 @@ public static class EstudiantesMenu
     Console.Write("Nombre: ");
     string nombre = Console.ReadLine()!;
 
-    Estudiante estudiante = new Estudiante { Nombre = nombre };
-
-    estudiantes = EstudiantesData.CrearEstudiante(estudiante) ?? new Estudiante[0];
+    estudiantes = EstudiantesData.CrearEstudiante(nombre) ?? new string[0];
   }
   public static void EditarEstudiante()
   {
@@ -39,16 +36,16 @@ public static class EstudiantesMenu
 
     if (Int32.TryParse(iInput, out int i))
     {
-      Estudiante? estudiante = EstudiantesData.CargarEstudiantePorIndice(i);
+      string? estudiante = EstudiantesData.CargarEstudiantePorIndice(i);
 
       if (estudiante == null) return;
 
-      Console.Write($"Nombre ({estudiante.Nombre}): ");
+      Console.Write($"Nombre ({estudiante}): ");
       string? nombre = Console.ReadLine();
 
-      if (!string.IsNullOrEmpty(nombre)) estudiante.Nombre = nombre;
+      if (string.IsNullOrEmpty(nombre)) estudiante = nombre ?? estudiante;
 
-      estudiantes = EstudiantesData.ActualizarEstudiante(i, estudiante) ?? new Estudiante[0];
+      estudiantes = EstudiantesData.ActualizarEstudiante(i, estudiante) ?? new string[0];
     }
     else Console.WriteLine("El valor es invalido intente nuevamente.");
   }
@@ -59,7 +56,7 @@ public static class EstudiantesMenu
 
     if (Int32.TryParse(iInput, out int i))
     {
-      estudiantes = EstudiantesData.EliminarEstudiante(i) ?? new Estudiante[0];
+      estudiantes = EstudiantesData.EliminarEstudiante(i) ?? new string[0];
     }
     else Console.WriteLine("El valor es invalido intente nuevamente.");
   }

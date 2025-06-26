@@ -1,11 +1,10 @@
 using Ruleta.Data;
-using Ruleta.Models;
 using Ruleta.Screen;
 using Ruleta.Utils;
 
 public static class HistorialScreen
 {
-  public static Pareja[][] parejas = ParejasData.parejas ?? new Pareja[0][];
+  public static string[][] parejas = ParejasData.parejas ?? new string[0][];
   public static void ListaDeHistoriales()
   {
     if (parejas == null || parejas.Length == 0)
@@ -14,7 +13,7 @@ public static class HistorialScreen
       return;
     }
     int i = 0;
-    foreach (Pareja[] par in parejas)
+    foreach (string[] par in parejas)
     {
       Console.WriteLine($"{i}: historial_{i}");
       i++;
@@ -27,13 +26,13 @@ public static class HistorialScreen
 
     if (Int32.TryParse(iInput, out int i))
     {
-      Pareja[]? parejas = ParejasData.CargarParejaPorIndice(i) ?? new Pareja[0];
+      string[]? parejas = ParejasData.CargarParejaPorIndice(i) ?? new string[0];
 
       int j = 0;
 
-      foreach (Pareja par in parejas)
+      foreach (string par in parejas)
       {
-        Console.WriteLine($"{j}: {par.Nombre1} - {par.Rol1}, {par.Nombre2} - {par.Rol2}");
+        Console.WriteLine($"{j}: {par}");
         j++;
       }
     }
@@ -41,7 +40,7 @@ public static class HistorialScreen
   }
   public static void VerHistorialActual()
   {
-    Pareja[]? parejas = ParejasData.parejasActuales ?? new Pareja[0];
+    string[]? parejas = ParejasData.parejasActuales ?? new string[0];
 
     if (parejas == null)
     {
@@ -51,9 +50,9 @@ public static class HistorialScreen
 
     int i = 0;
 
-    foreach (Pareja par in parejas)
+    foreach (string par in parejas)
     {
-      Console.WriteLine($"{i}: {par.Nombre1} - {par.Rol1}, {par.Nombre2} - {par.Rol2}");
+      Console.WriteLine($"{i}: {parejas[i]}");
       i++;
     }
   }

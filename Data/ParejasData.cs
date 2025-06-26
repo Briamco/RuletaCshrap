@@ -1,14 +1,11 @@
-using System.Net;
-using Ruleta.Models;
-
 namespace Ruleta.Data;
 
 public static class ParejasData
 {
-  public static Pareja[]? parejasActuales;
-  public static Pareja[][]? parejas;
+  public static string[]? parejasActuales;
+  public static string[][]? parejas;
 
-  public static Pareja[]? AgregarPareja(Pareja pareja)
+  public static string[]? AgregarPareja(string pareja)
   {
     if (pareja == null)
     {
@@ -18,12 +15,12 @@ public static class ParejasData
 
     if (parejasActuales == null)
     {
-      parejasActuales = new Pareja[] { pareja };
+      parejasActuales = new string[] { pareja };
       return parejasActuales;
     }
     else
     {
-      Pareja[] nuevoArreglo = new Pareja[parejasActuales.Length + 1];
+      string[] nuevoArreglo = new string[parejasActuales.Length + 1];
       for (int i = 0; i < parejasActuales.Length; i++)
       {
         nuevoArreglo[i] = parejasActuales[i];
@@ -40,7 +37,7 @@ public static class ParejasData
     parejas = ArchivoHelper.CargarHistorialesPorArchivo();
   }
 
-  public static Pareja[]? CargarParejaPorIndice(int i)
+  public static string[]? CargarParejaPorIndice(int i)
   {
     if (parejas == null || i < 0 || i >= parejas.Length)
     {

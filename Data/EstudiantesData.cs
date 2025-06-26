@@ -1,9 +1,8 @@
-using Ruleta.Models;
-
 namespace Ruleta.Data;
 
 public static class EstudiantesData
 {
+  public static string[]? estudiantes;
   public static bool ValidarIndice(int i)
   {
     if (estudiantes == null || estudiantes.Length == 0)
@@ -20,13 +19,12 @@ public static class EstudiantesData
 
     return true;
   }
-  public static Estudiante[]? estudiantes;
   public static void CargarEstudiantes()
   {
     estudiantes = ArchivoHelper.CargarEstudiantes();
   }
 
-  public static Estudiante? CargarEstudiantePorIndice(int i)
+  public static string? CargarEstudiantePorIndice(int i)
   {
     if (!ValidarIndice(i)) return null;
 
@@ -44,7 +42,7 @@ public static class EstudiantesData
     ArchivoHelper.GuardarEstudiantes(estudiantes);
   }
 
-  public static Estudiante[]? CrearEstudiante(Estudiante estudiante)
+  public static string[]? CrearEstudiante(string estudiante)
   {
     if (estudiante == null)
     {
@@ -54,12 +52,12 @@ public static class EstudiantesData
 
     if (estudiantes == null)
     {
-      estudiantes = new Estudiante[] { estudiante };
+      estudiantes = new string[] { estudiante };
       return estudiantes;
     }
     else
     {
-      Estudiante[] nuevoArreglo = new Estudiante[estudiantes.Length + 1];
+      string[] nuevoArreglo = new string[estudiantes.Length + 1];
       for (int i = 0; i < estudiantes.Length; i++)
       {
         nuevoArreglo[i] = estudiantes[i];
@@ -70,7 +68,7 @@ public static class EstudiantesData
     }
   }
 
-  public static Estudiante[]? ActualizarEstudiante(int i, Estudiante estudiante)
+  public static string[]? ActualizarEstudiante(int i, string estudiante)
   {
     if (estudiantes == null)
     {
@@ -88,7 +86,7 @@ public static class EstudiantesData
     return estudiantes;
   }
 
-  public static Estudiante[]? EliminarEstudiante(int i)
+  public static string[]? EliminarEstudiante(int i)
   {
     if (estudiantes == null)
     {
@@ -97,7 +95,7 @@ public static class EstudiantesData
     }
     if (!ValidarIndice(i)) return null;
 
-    Estudiante[] nuevoArreglo = new Estudiante[estudiantes.Length - 1];
+    string[] nuevoArreglo = new string[estudiantes.Length - 1];
     int j = 0;
     for (int k = 0; k < estudiantes.Length; k++)
     {
