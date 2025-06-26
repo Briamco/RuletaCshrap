@@ -4,13 +4,11 @@ namespace Ruleta.Services;
 
 public static class RuletaService
 {
-  //Ruleta exploto
-  private static string RolDev = "Desarrollador en Vivo";
-  private static string RolFac = "Facilitador";
+  private static string RolDev = ConfigData.config?[0] ?? "Desarrollador en Vivo";
+  private static string RolFac = ConfigData.config?[1] ?? "Facilitador";
 
   public static void IniciarRuleta()
   {
-
     string[]? estudiantes = EstudiantesData.estudiantes;
 
     if (estudiantes == null || estudiantes.Length < 2)
@@ -19,27 +17,62 @@ public static class RuletaService
       return;
     }
 
-    string[]? estudiantesSeleccionados = new string[estudiantes.Length - 2];
-    string[]? roles = new string[estudiantesSeleccionados.Length];
+    int total = estudiantes.Length;
+    bool[] fueDev = EstudiantesData.fueDev ?? new bool[total];
+    bool[] fueFac = EstudiantesData.fueFac ?? new bool[total];
+
     Random random = new Random();
+
     while (true)
     {
-      Console.Clear();
-      int i1 = random.Next(estudiantes.Length);
-      int i2;
+      bool terminado = true;
+      for (int i = 0; i < total; i++)
+      {
+        if (!fueDev[i] || !fueFac[i])
+        {
+          terminado = false;
+          break;
+        }
+      }
+
+      if (terminado)
+      {
+        Console.WriteLine("Todos los estudiantes ya han sido seleccionados. Fin de la ruleta.");
+        Console.WriteLine("Presiona Enter para salir.");
+        Console.ReadLine();
+        break;
+      }
+
+      int i1, i2;
+      int intentos = 0;
 
       do
       {
-        i2 = random.Next(estudiantes.Length);
-      } while (i2 == i1);
+        i1 = random.Next(total);
+        intentos++;
+        if (intentos > 1000) break;
+      } while (fueDev[i1]);
 
-      estudiantesSeleccionados.Append(estudiantes[i1]);
-      estudiantesSeleccionados.Append(estudiantes[i2]);
-      roles.Append(RolDev);
-      roles.Append(RolFac);
+      intentos = 0;
+      do
+      {
+        i2 = random.Next(total);
+        intentos++;
+        if (intentos > 1000) break;
+      } while (i2 == i1 || fueFac[i2]);
 
-      Console.WriteLine($"🧑‍💻 {estudiantes[i1]}: {RolDev}");
-      Console.WriteLine($"🧑‍💻 {estudiantes[i2]}: {RolFac}");
+      if (fueDev[i1] || fueFac[i2])
+      {
+        Console.WriteLine("No hay combinaciones posibles restantes.");
+        break;
+      }
+
+      fueDev[i1] = true;
+      fueFac[i2] = true;
+
+      Console.Clear();
+      Console.WriteLine($"{estudiantes[i1]}: {RolDev}");
+      Console.WriteLine($"{estudiantes[i2]}: {RolFac}");
 
       ParejasData.AgregarPareja($"{estudiantes[i1]}, {RolDev} - {estudiantes[i2]}, {RolFac}");
 

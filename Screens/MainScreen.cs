@@ -4,6 +4,7 @@ public static class MainMenu
 {
   public static void Navigator(int op)
   {
+    Console.Clear();
     switch (op)
     {
       case 1:

@@ -3,6 +3,9 @@ namespace Ruleta.Data;
 public static class EstudiantesData
 {
   public static string[]? estudiantes;
+  public static bool[]? fueDev;
+  public static bool[]? fueFac;
+
   public static bool ValidarIndice(int i)
   {
     if (estudiantes == null || estudiantes.Length == 0)
@@ -22,15 +25,19 @@ public static class EstudiantesData
   public static void CargarEstudiantes()
   {
     estudiantes = ArchivoHelper.CargarEstudiantes();
-  }
 
+    if (estudiantes != null)
+    {
+      fueDev = new bool[estudiantes.Length];
+      fueFac = new bool[estudiantes.Length];
+    }
+  }
   public static string? CargarEstudiantePorIndice(int i)
   {
     if (!ValidarIndice(i)) return null;
 
     return estudiantes?[i];
   }
-
   public static void GuardarEstudiantes()
   {
     if (estudiantes == null)
@@ -41,7 +48,6 @@ public static class EstudiantesData
 
     ArchivoHelper.GuardarEstudiantes(estudiantes);
   }
-
   public static string[]? CrearEstudiante(string estudiante)
   {
     if (estudiante == null)
@@ -53,21 +59,36 @@ public static class EstudiantesData
     if (estudiantes == null)
     {
       estudiantes = new string[] { estudiante };
+      fueDev = new bool[] { false };
+      fueFac = new bool[] { false };
       return estudiantes;
     }
     else
     {
-      string[] nuevoArreglo = new string[estudiantes.Length + 1];
-      for (int i = 0; i < estudiantes.Length; i++)
+      int n = estudiantes.Length;
+
+      string[] nuevoArreglo = new string[n + 1];
+      bool[] nuevoDev = new bool[n + 1];
+      bool[] nuevoFac = new bool[n + 1];
+
+      for (int i = 0; i < n; i++)
       {
         nuevoArreglo[i] = estudiantes[i];
+        nuevoDev[i] = fueDev?[i] ?? false;
+        nuevoFac[i] = fueFac?[i] ?? false;
       }
-      nuevoArreglo[estudiantes.Length] = estudiante;
+
+      nuevoArreglo[n] = estudiante;
+      nuevoDev[n] = false;
+      nuevoFac[n] = false;
+
       estudiantes = nuevoArreglo;
+      fueDev = nuevoDev;
+      fueFac = nuevoFac;
+
       return estudiantes;
     }
   }
-
   public static string[]? ActualizarEstudiante(int i, string estudiante)
   {
     if (estudiantes == null)
@@ -85,24 +106,36 @@ public static class EstudiantesData
     estudiantes[i] = estudiante;
     return estudiantes;
   }
-
   public static string[]? EliminarEstudiante(int i)
   {
-    if (estudiantes == null)
+    if (estudiantes == null || fueDev == null || fueFac == null)
     {
       Console.WriteLine("No hay estudiantes cargados.");
       return null;
     }
+
     if (!ValidarIndice(i)) return null;
 
-    string[] nuevoArreglo = new string[estudiantes.Length - 1];
+    int n = estudiantes.Length;
+    string[] nuevoEstudiantes = new string[n - 1];
+    bool[] nuevoDev = new bool[n - 1];
+    bool[] nuevoFac = new bool[n - 1];
+
     int j = 0;
-    for (int k = 0; k < estudiantes.Length; k++)
+    for (int k = 0; k < n; k++)
     {
       if (k == i) continue;
-      nuevoArreglo[j++] = estudiantes[k];
+
+      nuevoEstudiantes[j] = estudiantes[k];
+      nuevoDev[j] = fueDev[k];
+      nuevoFac[j] = fueFac[k];
+      j++;
     }
-    estudiantes = nuevoArreglo;
+
+    estudiantes = nuevoEstudiantes;
+    fueDev = nuevoDev;
+    fueFac = nuevoFac;
+
     return estudiantes;
   }
 }
