@@ -38,6 +38,7 @@ public static class ConfigScreen
         Console.WriteLine("Ninguna opcion es valida, intente nuevamente");
         break;
     }
+    Console.WriteLine("Presiona cualquier tecla para continuar...");
     Console.ReadLine();
   }
   public static void MainScreen()
