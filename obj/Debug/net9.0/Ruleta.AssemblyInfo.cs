@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Ruleta")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+baa2ab71b104e2fa20801d38026f4d99dbbf8448")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b55d2e5210d3a70bdf899bb641d8bd32795e9219")]
 [assembly: System.Reflection.AssemblyProductAttribute("Ruleta")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Ruleta")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
