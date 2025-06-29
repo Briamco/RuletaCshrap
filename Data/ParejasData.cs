@@ -1,3 +1,5 @@
+using System.Data;
+
 namespace Ruleta.Data;
 
 public static class ParejasData
@@ -29,7 +31,17 @@ public static class ParejasData
       parejasActuales = nuevoArreglo;
       return parejasActuales;
     }
+  }
+  public static string[]? ActualizarParejaActual(int i, string nuevaPareja)
+  {
+    if (parejasActuales == null || i < 0 || i >= parejasActuales.Length)
+    {
+      Console.WriteLine("Índice fuera de rango o no hay parejas cargadas.");
+      return null;
+    }
 
+    parejasActuales[i] = nuevaPareja;
+    return parejasActuales;
   }
 
   public static void CargarParejas()
