@@ -13,9 +13,9 @@ public static class ContadorMenu
 
     if (Int32.TryParse(iInput, out int i))
     {
-      string? pareja = parejas[i] ?? string.Empty;
+      string? pareja = parejas[i] ?? null;
 
-      if (string.IsNullOrEmpty(pareja))
+      if (pareja == null)
       {
         Console.WriteLine("No se pudo iniciar el contador. Intente nuevamente.");
         return;
@@ -30,7 +30,7 @@ public static class ContadorMenu
       }
       string? tiempo = ContadorService.IniciarContador(pareja);
 
-      if (string.IsNullOrEmpty(tiempo))
+      if (tiempo == null)
       {
         Console.WriteLine("No se pudo iniciar el contador. Intente nuevamente.");
         return;

@@ -43,7 +43,7 @@ public static class EstudiantesMenu
       Console.Write($"Nombre ({estudiante}): ");
       string? nombre = Console.ReadLine();
 
-      if (string.IsNullOrEmpty(nombre)) estudiante = nombre ?? estudiante;
+      if (nombre == null) estudiante = nombre ?? estudiante;
 
       estudiantes = EstudiantesData.ActualizarEstudiante(i, estudiante) ?? new string[0];
     }

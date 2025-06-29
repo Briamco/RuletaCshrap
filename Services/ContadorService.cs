@@ -39,7 +39,7 @@ class ContadorService
   }
   public static string? IniciarContador(string pareja)
   {
-    if (string.IsNullOrEmpty(pareja))
+    if (pareja == null)
     {
       Console.WriteLine("No se pudo iniciar el contador. Intente nuevamente.");
       return null;

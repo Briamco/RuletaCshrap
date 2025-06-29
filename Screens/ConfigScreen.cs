@@ -13,7 +13,7 @@ public static class ConfigScreen
     Console.Write($"{lastConfig[1]}: ");
     string? Fac = Console.ReadLine();
 
-    if (string.IsNullOrEmpty(Dev) || string.IsNullOrEmpty(Fac))
+    if (Dev == null || Fac == null)
     {
       Dev = "Desarrollador en Vivo";
       Fac = "Facilitador";
