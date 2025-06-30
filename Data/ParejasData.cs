@@ -1,4 +1,5 @@
 using System.Data;
+using Ruleta.Utils;
 
 namespace Ruleta.Data;
 
@@ -7,6 +8,14 @@ public static class ParejasData
   public static string[]? parejasActuales;
   public static string[][]? parejas;
 
+  public static bool ValidarIndiceActuales(int i)
+  {
+    return ValidationHelper.ValidarIndice(i, parejasActuales, "parejas");
+  }
+  public static bool ValidarIndiceHistorial(int i)
+  {
+    return ValidationHelper.ValidarIndiceArrayDoble(i, parejas, "historial");
+  }
   public static string[]? AgregarPareja(string pareja)
   {
     if (pareja == null)
@@ -34,11 +43,13 @@ public static class ParejasData
   }
   public static string[]? ActualizarParejaActual(int i, string nuevaPareja)
   {
-    if (parejasActuales == null || i < 0 || i >= parejasActuales.Length)
+    if (parejasActuales == null)
     {
-      Console.WriteLine("Índice fuera de rango o no hay parejas cargadas.");
+      Console.WriteLine("No hay parejas cargadas");
       return null;
     }
+
+    if (!ValidarIndiceActuales(i)) return null;
 
     parejasActuales[i] = nuevaPareja;
     return parejasActuales;
@@ -51,11 +62,13 @@ public static class ParejasData
 
   public static string[]? CargarParejaPorIndice(int i)
   {
-    if (parejas == null || i < 0 || i >= parejas.Length)
+    if (parejas == null)
     {
-      Console.WriteLine("Índice fuera de rango o no hay parejas cargadas.");
+      Console.WriteLine("No hay historial de parejas cargado.");
       return null;
     }
+
+    if (!ValidarIndiceHistorial(i)) return null;
 
     return parejas[i];
   }

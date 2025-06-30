@@ -20,16 +20,16 @@ public static class EstudiantesMenu
       i++;
     }
   }
-  public static void CrearEstudiante()
+  public static void AgregarEstudiante()
   {
     Console.WriteLine("Escribe los datos necesarios para Crear el estudiante");
 
     Console.Write("Nombre: ");
     string nombre = Console.ReadLine()!;
 
-    estudiantes = EstudiantesData.CrearEstudiante(nombre) ?? new string[0];
+    estudiantes = EstudiantesData.AgregarEstudiante(nombre) ?? new string[0];
   }
-  public static void EditarEstudiante()
+  public static void ActualizarEstudiante()
   {
     Console.Write("Indice del estudiante: ");
     string? iInput = Console.ReadLine();
@@ -41,15 +41,15 @@ public static class EstudiantesMenu
       if (estudiante == null) return;
 
       Console.Write($"Nombre ({estudiante}): ");
-      string? nombre = Console.ReadLine();
+      string nombre = Console.ReadLine()!;
 
-      if (nombre == null) estudiante = nombre ?? estudiante;
+      if (nombre == null || nombre.Trim() == "") nombre = estudiante;
 
-      estudiantes = EstudiantesData.ActualizarEstudiante(i, estudiante) ?? new string[0];
+      estudiantes = EstudiantesData.ActualizarEstudiante(i, nombre) ?? new string[0];
     }
     else Console.WriteLine("El valor es invalido intente nuevamente.");
   }
-  public static void BorrarEstudiante()
+  public static void EliminarEstudiante()
   {
     Console.Write("Indice del estudiante: ");
     string? iInput = Console.ReadLine();
@@ -70,13 +70,13 @@ public static class EstudiantesMenu
         VerEstudiante();
         break;
       case 2:
-        CrearEstudiante();
+        AgregarEstudiante();
         break;
       case 3:
-        EditarEstudiante();
+        ActualizarEstudiante();
         break;
       case 4:
-        BorrarEstudiante();
+        EliminarEstudiante();
         break;
       default:
         Console.WriteLine("Ninguna opcion es valida, intente nuevamente");

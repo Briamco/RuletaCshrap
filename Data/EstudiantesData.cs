@@ -1,3 +1,5 @@
+using Ruleta.Utils;
+
 namespace Ruleta.Data;
 
 public static class EstudiantesData
@@ -6,22 +8,7 @@ public static class EstudiantesData
   public static bool[]? fueDev;
   public static bool[]? fueFac;
 
-  public static bool ValidarIndice(int i)
-  {
-    if (estudiantes == null || estudiantes.Length == 0)
-    {
-      Console.WriteLine("No hay estudiantes cargados.");
-      return false;
-    }
 
-    if (i < 0 || i >= estudiantes.Length)
-    {
-      Console.WriteLine("Índice fuera de rango.");
-      return false;
-    }
-
-    return true;
-  }
   public static void CargarEstudiantes()
   {
     estudiantes = ArchivoHelper.CargarEstudiantes();
@@ -31,6 +18,10 @@ public static class EstudiantesData
       fueDev = new bool[estudiantes.Length];
       fueFac = new bool[estudiantes.Length];
     }
+  }
+  public static bool ValidarIndice(int i)
+  {
+    return ValidationHelper.ValidarIndice(i, estudiantes, "estudiantes");
   }
   public static string? CargarEstudiantePorIndice(int i)
   {
@@ -48,7 +39,7 @@ public static class EstudiantesData
 
     ArchivoHelper.GuardarEstudiantes(estudiantes);
   }
-  public static string[]? CrearEstudiante(string estudiante)
+  public static string[]? AgregarEstudiante(string estudiante)
   {
     if (estudiante == null)
     {
@@ -97,7 +88,7 @@ public static class EstudiantesData
       return null;
     }
     if (!ValidarIndice(i)) return null;
-    if (estudiante == null)
+    if (estudiante == null || estudiante.Trim() == "")
     {
       Console.WriteLine("No se pudo actualizar el estudiante. Intente nuevamente.");
       return estudiantes;
