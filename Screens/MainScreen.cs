@@ -11,15 +11,18 @@ public static class MainMenu
         RuletaService.IniciarRuleta();
         break;
       case 2:
-        EstudiantesMenu.MainScreen();
-        break;
-      case 3:
-        HistorialScreen.MainScreen();
-        break;
-      case 4:
         ContadorMenu.MainScreen();
         break;
+      case 3:
+        EstudiantesMenu.MainScreen();
+        break;
+      case 4:
+        HistorialScreen.MainScreen();
+        break;
       case 5:
+        RetosScreen.MainScreen();
+        break;
+      case 6:
         ConfigScreen.MainScreen();
         break;
       default:
@@ -32,10 +35,11 @@ public static class MainMenu
   {
     Console.Clear();
     Console.WriteLine("1.Iniciar Ruleta");
-    Console.WriteLine("2.Estudiantes");
-    Console.WriteLine("3.Historial");
-    Console.WriteLine("4.Contador");
-    Console.WriteLine("5.Configuracion");
+    Console.WriteLine("2.Contador");
+    Console.WriteLine("3.Estudiantes");
+    Console.WriteLine("4.Historial");
+    Console.WriteLine("5.Retos");
+    Console.WriteLine("6.Configuracion");
     Console.WriteLine($"{exitInput}.Salir");
   }
 }

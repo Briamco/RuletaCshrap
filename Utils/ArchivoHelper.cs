@@ -4,8 +4,8 @@ public static class ArchivoHelper
 {
   private const string RutaEstudiantes = "Storage/Estudiantes.txt";
   private const string RutaParejas = "Storage/Historial";
-
   private const string RutaConfig = "Storage/Config.txt";
+  private const string RutaRetos = "Storage/Retos.txt";
   public static void GuardarEstudiantes(string[] estudiantes)
   {
     using (StreamWriter write = new StreamWriter(RutaEstudiantes, false, Encoding.UTF8))
@@ -16,8 +16,6 @@ public static class ArchivoHelper
       }
     }
   }
-
-
   public static string[] CargarEstudiantes()
   {
     if (!File.Exists(RutaEstudiantes))
@@ -36,12 +34,10 @@ public static class ArchivoHelper
 
     return estudiantes;
   }
-
   public static void GuardarParejas(string[] parejas)
   {
     var archivos = Directory.GetFiles(RutaParejas, "historial_*.txt");
 
-    // Obtener el número siguiente
     int numero = archivos.Length;
     string archivoNombre = Path.Combine(RutaParejas, $"historial_{numero}.txt");
 
@@ -98,7 +94,6 @@ public static class ArchivoHelper
       }
     }
   }
-
   public static string[]? CargarCongif()
   {
     if (!File.Exists(RutaConfig))
@@ -107,6 +102,24 @@ public static class ArchivoHelper
     }
 
     string[] lineas = File.ReadAllLines(RutaConfig);
+
+    return lineas;
+  }
+  public static void GuardarRetos(string[]? retos)
+  {
+    using (StreamWriter write = new StreamWriter(RutaConfig, false, Encoding.UTF8))
+    {
+      write.WriteLine(retos);
+    }
+  }
+  public static string[]? CargarRetos()
+  {
+    if (!File.Exists(RutaRetos))
+    {
+      return new string[0];
+    }
+
+    string[] lineas = File.ReadAllLines(RutaRetos);
 
     return lineas;
   }
