@@ -24,6 +24,7 @@ public class Screen
           EstudiantesData.GuardarEstudiantes();
           ParejasData.GuardarParejas();
           ConfigData.GuardarConfig();
+          RetosData.GuardarRetos();
           Console.WriteLine("Saliendo del programa...");
           break;
         }
