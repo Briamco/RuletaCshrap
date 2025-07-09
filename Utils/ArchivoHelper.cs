@@ -82,15 +82,13 @@ public static class ArchivoHelper
   {
     using (StreamWriter write = new StreamWriter(RutaConfig, false, Encoding.UTF8))
     {
-      if (config == null || config.Length == 0)
+      if (config == null || config.Length < 2)
       {
-        write.WriteLine("Desarrollador en Vivo");
-        write.WriteLine("Facilitador");
-        return;
+        config = new string[] { "Desarrollador en Vivo", "Facilitador" };
       }
-      foreach (var c in config)
+      foreach (var item in config)
       {
-        write.WriteLine(c);
+        write.WriteLine(item);
       }
     }
   }
@@ -103,13 +101,21 @@ public static class ArchivoHelper
 
     string[] lineas = File.ReadAllLines(RutaConfig);
 
+    if (lineas.Length < 2)
+    {
+      return new string[] { "Desarrollador en Vivo", "Facilitador" };
+    }
+
     return lineas;
   }
   public static void GuardarRetos(string[]? retos)
   {
-    using (StreamWriter write = new StreamWriter(RutaConfig, false, Encoding.UTF8))
+    using (StreamWriter write = new StreamWriter(RutaRetos, false, Encoding.UTF8))
     {
-      write.WriteLine(retos);
+      foreach (var reto in retos ?? new string[0])
+      {
+        write.WriteLine(reto);
+      }
     }
   }
   public static string[]? CargarRetos()
