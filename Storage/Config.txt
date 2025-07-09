@@ -1,2 +1,1 @@
-﻿Desarrollador en Vivo
-Facilitador
+﻿System.String[]

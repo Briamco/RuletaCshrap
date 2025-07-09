@@ -2,46 +2,64 @@ using Ruleta.Data;
 using Ruleta.Screen;
 using Ruleta.Services;
 using Ruleta.Utils;
-
+/*
+TODO: 
+- No se estan guardando los retos.
+- Actualizar el historial de parejas al iniciar un contador.
+- Buscar otra pereja si esta ya tiene un tiempo establecido.
+*/
 public static class ContadorMenu
 {
-  static public string[] parejas = ParejasData.parejasActuales ?? new string[0];
+  public static string[] parejas = ParejasData.parejasActuales ?? new string[0];
+  public static string[]? retos = RetosData.retos ?? new string[0];
+
   public static void IniciarConteo()
   {
-    Console.WriteLine("Escribe el indice de la pareja que quieres iniciar el contador");
-    string? iInput = Console.ReadLine();
-
-    if (Int32.TryParse(iInput, out int i))
+    string[]? parejaArray = RetoService.AsignarPareja(parejas) ?? null;
+    if (parejaArray == null || parejaArray.Length == 0)
     {
-      string? pareja = parejas[i] ?? null;
-
-      if (pareja == null)
-      {
-        Console.WriteLine("No se pudo iniciar el contador. Intente nuevamente.");
-        return;
-      }
-
-      string[] parejaSplit = pareja.Split(" || ");
-
-      if (parejaSplit.Length > 1)
-      {
-        Console.WriteLine("Esta pareja ya tiene un tiempo establecido.");
-        return;
-      }
-      string? tiempo = ContadorService.IniciarContador(pareja);
-
-      if (tiempo == null)
-      {
-        Console.WriteLine("No se pudo iniciar el contador. Intente nuevamente.");
-        return;
-      }
-      ParejasData.ActualizarParejaActual(i, $"{pareja} || {tiempo}");
+      Console.WriteLine("No hay parejas disponibles para asignar un reto.");
+      return;
     }
-    else
+
+    string pareja = parejaArray[0] ?? "";
+    int i = Int32.Parse(parejaArray[1]);
+    if (pareja == null || pareja.Trim() == "")
     {
-      Console.WriteLine("El valor es invalido intente nuevamente.");
+      Console.WriteLine("La pareja seleccionada está vacía.");
+      return;
     }
+
+    string[] parejaSplit = pareja.Split(" || ");
+    if (parejaSplit.Length > 1)
+    {
+      Console.WriteLine("Esta pareja ya tiene un tiempo establecido.");
+      return;
+    }
+
+    string? retoAsignado = RetoService.AsignarReto(retos);
+    if (retoAsignado == null)
+    {
+      Console.WriteLine("No se pudo asignar un reto. Intente nuevamente.");
+      return;
+    }
+
+    Console.WriteLine($"Iniciando contador para la pareja: {pareja}");
+    Console.WriteLine($"Reto asignado: {retoAsignado}");
+    Console.WriteLine("Presiona cualquier tecla para comenzar el contador...");
+    Console.ReadKey(true);
+
+    string? tiempo = ContadorService.IniciarContador(pareja);
+    if (tiempo == null)
+    {
+      Console.WriteLine("No se pudo iniciar el contador. Intente nuevamente.");
+      return;
+    }
+
+    ParejasData.ActualizarParejaActual(i, $"{pareja} || {tiempo}");
+    Console.WriteLine("Tiempo registrado con éxito.");
   }
+
   public static void VerTabla()
   {
     if (parejas == null || parejas.Length == 0)
@@ -142,7 +160,8 @@ public static class ContadorMenu
       Console.Clear();
       Console.WriteLine("1.Iniciar Contador");
       Console.WriteLine("2.Ver Tabla de Contadores");
-      Console.WriteLine("3.Cargar Historial de Parejas");
+      Console.WriteLine("3.Ver Lista de Historiales");
+      Console.WriteLine("4.Cargar Historial de Parejas");
       Console.WriteLine($"{Screen.ExitInput}.Volver");
 
       int op = InputHelper.LeerOpcion();
