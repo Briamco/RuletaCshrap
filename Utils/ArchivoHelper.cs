@@ -7,49 +7,37 @@ public static class ArchivoHelper
   private const string RutaParejas = "Storage/Historial";
   private const string RutaConfig = "Storage/Config.txt";
   private const string RutaRetos = "Storage/Retos.txt";
-  public static void GuardarEstudiantes(string[] estudiantes)
+  private static string[] DefaultConfig = { "Desarrollador en Vivo", "Facilitador" };
+
+  private static void GuardarArchivo(string ruta, string[] lineas)
   {
-    using (StreamWriter write = new StreamWriter(RutaEstudiantes, false, Encoding.UTF8))
+    using (StreamWriter write = new StreamWriter(ruta, false, Encoding.UTF8))
     {
-      foreach (var est in estudiantes)
+      foreach (var linea in lineas)
       {
-        write.WriteLine(est);
+        write.WriteLine(linea);
       }
     }
   }
-  public static string[] CargarEstudiantes()
+
+  private static string[] CargarArchivo(string ruta)
   {
-    if (!File.Exists(RutaEstudiantes))
-    {
-      return new string[0];
-    }
-
-    var lines = File.ReadAllLines(RutaEstudiantes);
-    string[] estudiantes = new string[lines.Length];
-
-    for (int i = 0; i < lines.Length; i++)
-    {
-      string Nombre = lines[i];
-      estudiantes[i] = Nombre;
-    }
-
-    return estudiantes;
+    return File.Exists(ruta) ? File.ReadAllLines(ruta, Encoding.UTF8) : Array.Empty<string>();
   }
+
+  public static void GuardarEstudiantes(string[] estudiantes) =>
+    GuardarArchivo(RutaEstudiantes, estudiantes);
+
+  public static string[] CargarEstudiantes() =>
+    CargarArchivo(RutaEstudiantes);
+
   public static void GuardarParejas(string[] parejas)
   {
+    Directory.CreateDirectory(RutaParejas);
     var archivos = Directory.GetFiles(RutaParejas, "historial_*.txt");
-
     int numero = archivos.Length;
     string archivoNombre = Path.Combine(RutaParejas, $"historial_{numero}.txt");
-
-    using (StreamWriter write = new StreamWriter(archivoNombre, false, Encoding.UTF8))
-    {
-      foreach (var prj in parejas)
-      {
-        write.WriteLine(prj);
-      }
-    }
-
+    GuardarArchivo(archivoNombre, parejas);
     StyleConsole.WriteLine($"Parejas guardadas en el archivo: {archivoNombre}", ConsoleColor.Cyan);
   }
 
@@ -57,77 +45,26 @@ public static class ArchivoHelper
   {
     if (!Directory.Exists(RutaParejas))
     {
-      StyleConsole.Error("No existe el directorio de Hitoriales.");
-      return new string[0][];
+      StyleConsole.Error("No existe el directorio de Historiales.");
+      return Array.Empty<string[]>();
     }
 
     string[] archivos = Directory.GetFiles(RutaParejas, "historial_*.txt");
-    string[][] historial = new string[archivos.Length][];
-
-    for (int i = 0; i < archivos.Length; i++)
-    {
-      string[] lineas = File.ReadAllLines(archivos[i], Encoding.UTF8);
-      string[] parejasDeArchivo = new string[lineas.Length];
-
-      for (int j = 0; j < lineas.Length; j++)
-      {
-        parejasDeArchivo[j] = lineas[j];
-      }
-
-      historial[i] = parejasDeArchivo;
-    }
-
-    return historial;
+    return archivos.Select(archivo => File.ReadAllLines(archivo, Encoding.UTF8)).ToArray();
   }
-  public static void GuardarConfig(string[]? config)
+
+  public static void GuardarConfig(string[]? config) =>
+    GuardarArchivo(RutaConfig, config is { Length: >= 2 } ? config : DefaultConfig);
+
+  public static string[] CargarConfig()
   {
-    using (StreamWriter write = new StreamWriter(RutaConfig, false, Encoding.UTF8))
-    {
-      if (config == null || config.Length < 2)
-      {
-        config = new string[] { "Desarrollador en Vivo", "Facilitador" };
-      }
-      foreach (var item in config)
-      {
-        write.WriteLine(item);
-      }
-    }
+    var lineas = CargarArchivo(RutaConfig);
+    return lineas.Length < 2 ? DefaultConfig : lineas;
   }
-  public static string[]? CargarCongif()
-  {
-    if (!File.Exists(RutaConfig))
-    {
-      return new string[] { "Desarrollador en Vivo", "Facilitador" };
-    }
 
-    string[] lineas = File.ReadAllLines(RutaConfig);
+  public static void GuardarRetos(string[]? retos) =>
+    GuardarArchivo(RutaRetos, retos ?? Array.Empty<string>());
 
-    if (lineas.Length < 2)
-    {
-      return new string[] { "Desarrollador en Vivo", "Facilitador" };
-    }
-
-    return lineas;
-  }
-  public static void GuardarRetos(string[]? retos)
-  {
-    using (StreamWriter write = new StreamWriter(RutaRetos, false, Encoding.UTF8))
-    {
-      foreach (var reto in retos ?? new string[0])
-      {
-        write.WriteLine(reto);
-      }
-    }
-  }
-  public static string[]? CargarRetos()
-  {
-    if (!File.Exists(RutaRetos))
-    {
-      return new string[0];
-    }
-
-    string[] lineas = File.ReadAllLines(RutaRetos);
-
-    return lineas;
-  }
+  public static string[] CargarRetos() =>
+    CargarArchivo(RutaRetos);
 }
