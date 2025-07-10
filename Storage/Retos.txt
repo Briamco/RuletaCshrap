@@ -1,2 +1,9 @@
-﻿test1
-test2
+﻿El facilitador no puede hablar en absoluto. Solo puede comunicarse con gestos o escribiendo en papel.
+El desarrollador solo puede usar su mano no dominante.
+A los 3 minutos deben cambiar de rol.
+El facilitador debe dar las instrucciones al revés (por ejemplo: izquierda = derecha, arriba = abajo).
+El publico tiene que interumpir.
+El facilitador debe guiar al desarrollador verbalmente sin que vea la pantalla.
+No pueden usar el computador. Deben hacer todo en una hoja o pizarra.
+Todo debe hacerse en inglés.
+El desarrollador debe trabajar con música en audífonos a volumen bajo, sin quitarse los audífonos.
