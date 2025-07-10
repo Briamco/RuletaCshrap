@@ -9,51 +9,51 @@ public static class HistorialScreen
   {
     if (parejas == null || parejas.Length == 0)
     {
-      Console.WriteLine("No hay estudiantes cargados.");
+      StyleConsole.Title("HISTORIALES", 30);
+      StyleConsole.Error("No hay estudiantes cargados.");
       return;
     }
-    int i = 0;
-    foreach (string[] par in parejas)
+    StyleConsole.Title("LISTA DE HISTORIALES", 40);
+    for (int i = 0; i < parejas.Length; i++)
     {
-      Console.WriteLine($"{i}: historial_{i}");
-      i++;
+      StyleConsole.WriteLine($"{i}: historial_{i}", ConsoleColor.Green);
     }
   }
   public static void VerHistorial()
   {
-    Console.Write("Indice del estudiante: ");
+    StyleConsole.Title("VER HISTORIAL", 30);
+    StyleConsole.Write("Índice del historial:", ConsoleColor.Cyan);
     string? iInput = Console.ReadLine();
 
     if (Int32.TryParse(iInput, out int i))
     {
       string[]? parejas = ParejasData.CargarParejaPorIndice(i) ?? new string[0];
-
-      int j = 0;
-
-      foreach (string par in parejas)
+      if (parejas.Length == 0)
       {
-        Console.WriteLine($"{j}: {par}");
-        j++;
+        StyleConsole.Error("No se encontró el historial.");
+        return;
+      }
+      StyleConsole.Title($"HISTORIAL {i}", 40);
+      for (int j = 0; j < parejas.Length; j++)
+      {
+        StyleConsole.WriteLine($"{j}: {parejas[j]}", ConsoleColor.Green);
       }
     }
-    else Console.WriteLine("El valor es invalido intente nuevamente.");
+    else StyleConsole.Error("El valor es invalido intente nuevamente.");
   }
   public static void VerHistorialActual()
   {
     string[]? parejas = ParejasData.parejasActuales ?? new string[0];
-
-    if (parejas == null)
+    if (parejas == null || parejas.Length == 0)
     {
-      Console.WriteLine("No hay historial.");
+      StyleConsole.Title("HISTORIAL ACTUAL", 30);
+      StyleConsole.WriteLine("No hay historial.", ConsoleColor.Red);
       return;
     }
-
-    int i = 0;
-
-    foreach (string par in parejas)
+    StyleConsole.Title("HISTORIAL ACTUAL", 40);
+    for (int i = 0; i < parejas.Length; i++)
     {
-      Console.WriteLine($"{i}: {parejas[i]}");
-      i++;
+      StyleConsole.WriteLine($"{i}: {parejas[i]}", ConsoleColor.Green);
     }
   }
   public static void Navigator(int op)
@@ -71,10 +71,10 @@ public static class HistorialScreen
         VerHistorialActual();
         break;
       default:
-        Console.WriteLine("Ninguna opcion es valida, intente nuevamente");
+        StyleConsole.Error("Ninguna opción es válida, intente nuevamente");
         break;
     }
-    Console.WriteLine("Presiona cualquier tecla para continuar...");
+    StyleConsole.WriteLine("Presiona cualquier tecla para continuar...", ConsoleColor.Cyan);
     Console.ReadLine();
   }
   public static void MainScreen()
@@ -82,10 +82,11 @@ public static class HistorialScreen
     while (true)
     {
       Console.Clear();
-      Console.WriteLine("1.Ver lista de Historiales");
-      Console.WriteLine("2.Ver un historial especifico");
-      Console.WriteLine("3.Ver un historial actual");
-      Console.WriteLine($"{Screen.ExitInput}.Volver");
+      StyleConsole.Title("GESTIÓN DE HISTORIALES", 40);
+      StyleConsole.WriteLine("1. Ver lista de Historiales", ConsoleColor.Green);
+      StyleConsole.WriteLine("2. Ver un historial específico", ConsoleColor.Green);
+      StyleConsole.WriteLine("3. Ver un historial actual", ConsoleColor.Green);
+      StyleConsole.WriteLine($"{Screen.ExitInput}. Volver", ConsoleColor.Red);
 
       int op = InputHelper.LeerOpcion();
 

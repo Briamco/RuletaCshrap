@@ -17,20 +17,27 @@ public class Screen
 
       if (op == ExitInput)
       {
-        Console.WriteLine("¿Está seguro que desea salir? (S/N)");
+        StyleConsole.Title("CONFIRMACIÓN DE SALIDA", 40);
+        StyleConsole.WriteLine("¿Está seguro que desea salir? (S/N)", ConsoleColor.Yellow);
         string? confirm = Console.ReadLine()?.Trim().ToUpper();
         if (confirm == "S")
         {
+          StyleConsole.Title("GUARDANDO DATOS", 40);
+          StyleConsole.WriteLine("Guardando estudiantes...", ConsoleColor.Cyan);
           EstudiantesData.GuardarEstudiantes();
+          StyleConsole.WriteLine("Guardando parejas...", ConsoleColor.Cyan);
           ParejasData.GuardarParejas();
+          StyleConsole.WriteLine("Guardando configuración...", ConsoleColor.Cyan);
           ConfigData.GuardarConfig();
+          StyleConsole.WriteLine("Guardando retos...", ConsoleColor.Cyan);
           RetosData.GuardarRetos();
-          Console.WriteLine("Saliendo del programa...");
+          StyleConsole.Title("SALIENDO DEL PROGRAMA", 40);
+          StyleConsole.WriteLine("¡Hasta pronto!", ConsoleColor.Green);
           break;
         }
         else
         {
-          Console.WriteLine("Operación cancelada. Volviendo al menú principal...");
+          StyleConsole.Error("Operación cancelada. Volviendo al menú principal...");
           continue;
         }
       }

@@ -1,4 +1,5 @@
 using Ruleta.Data;
+using Ruleta.Utils;
 
 namespace Ruleta.Services;
 
@@ -13,7 +14,8 @@ public static class RuletaService
 
     if (estudiantes == null || estudiantes.Length < 2)
     {
-      Console.WriteLine("No hay suficientes estudiantes para iniciar la ruleta.");
+      StyleConsole.Title("RULETA", 30);
+      StyleConsole.Error("No hay suficientes estudiantes para iniciar la ruleta.");
       return;
     }
 
@@ -37,8 +39,9 @@ public static class RuletaService
 
       if (terminado)
       {
-        Console.WriteLine("Todos los estudiantes ya han sido seleccionados. Fin de la ruleta.");
-        Console.WriteLine("Presiona Enter para salir.");
+        StyleConsole.Title("RULETA FINALIZADA", 35);
+        StyleConsole.WriteLine("Todos los estudiantes ya han sido seleccionados. Fin de la ruleta.", ConsoleColor.Yellow);
+        StyleConsole.WriteLine("Presiona Enter para salir.", ConsoleColor.Cyan);
         Console.ReadLine();
         break;
       }
@@ -63,7 +66,8 @@ public static class RuletaService
 
       if (fueDev[i1] || fueFac[i2])
       {
-        Console.WriteLine("No hay combinaciones posibles restantes.");
+        StyleConsole.Title("SIN COMBINACIONES", 35);
+        StyleConsole.Error("No hay combinaciones posibles restantes.");
         break;
       }
 
@@ -71,12 +75,13 @@ public static class RuletaService
       fueFac[i2] = true;
 
       Console.Clear();
-      Console.WriteLine($"{estudiantes[i1]}: {RolDev}");
-      Console.WriteLine($"{estudiantes[i2]}: {RolFac}");
+      StyleConsole.Title("PAREJA ASIGNADA", 35);
+      StyleConsole.WriteLine($"{estudiantes[i1]}: {RolDev}", ConsoleColor.Green);
+      StyleConsole.WriteLine($"{estudiantes[i2]}: {RolFac}", ConsoleColor.Cyan);
 
       ParejasData.AgregarPareja($"{estudiantes[i1]}, {RolDev} - {estudiantes[i2]}, {RolFac}");
 
-      Console.WriteLine("\nPresiona Enter para continuar o escribe 'salir' para terminar.");
+      StyleConsole.Write("\nPresiona Enter para continuar o escribe 'salir' para terminar.", ConsoleColor.Yellow);
       string? input = Console.ReadLine();
       if (input?.ToLower() == "salir") break;
     }

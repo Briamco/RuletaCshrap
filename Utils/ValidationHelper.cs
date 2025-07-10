@@ -6,13 +6,13 @@ class ValidationHelper
   {
     if (array == null || array.Length == 0)
     {
-      Console.WriteLine($"No hay {type} cargados.");
+      StyleConsole.Error($"No hay {type} cargados.");
       return false;
     }
 
     if (i < 0 || i >= array.Length)
     {
-      Console.WriteLine("Índice fuera de rango.");
+      StyleConsole.Error("Índice fuera de rango.");
       return false;
     }
     return true;
@@ -21,13 +21,13 @@ class ValidationHelper
   {
     if (array == null || array.Length == 0)
     {
-      Console.WriteLine($"No hay {type} cargados.");
+      StyleConsole.Error($"No hay {type} cargados.");
       return false;
     }
 
     if (i < 0 || i >= array.Length)
     {
-      Console.WriteLine("Índice fuera de rango.");
+      StyleConsole.Error("Índice fuera de rango.");
       return false;
     }
 

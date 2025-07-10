@@ -33,7 +33,7 @@ public static class EstudiantesData
   {
     if (estudiantes == null)
     {
-      Console.WriteLine("No hay estudiantes para guardar.");
+      StyleConsole.Error("No hay estudiantes para guardar.");
       return;
     }
 
@@ -41,9 +41,9 @@ public static class EstudiantesData
   }
   public static string[]? AgregarEstudiante(string estudiante)
   {
-    if (estudiante == null)
+    if (estudiante == null || estudiante.Trim() == "")
     {
-      Console.WriteLine("No se pudo crear el estudiante. Intente nuevamente.");
+      StyleConsole.Error("El nombre del estudiante no puede estar vacío. Intente nuevamente.");
       return estudiantes;
     }
 
@@ -76,6 +76,7 @@ public static class EstudiantesData
       estudiantes = nuevoArreglo;
       fueDev = nuevoDev;
       fueFac = nuevoFac;
+      StyleConsole.WriteLine("Estudiante agregado con éxito.", ConsoleColor.Green);
 
       return estudiantes;
     }
@@ -84,24 +85,26 @@ public static class EstudiantesData
   {
     if (estudiantes == null)
     {
-      Console.WriteLine("No hay estudiantes cargados.");
+      StyleConsole.Error("No hay estudiantes cargados.");
       return null;
     }
     if (!ValidarIndice(i)) return null;
     if (estudiante == null || estudiante.Trim() == "")
     {
-      Console.WriteLine("No se pudo actualizar el estudiante. Intente nuevamente.");
+      StyleConsole.Error("No se pudo actualizar el estudiante. Intente nuevamente.");
       return estudiantes;
     }
 
     estudiantes[i] = estudiante;
+    StyleConsole.WriteLine("Estudiante actualizado con éxito.", ConsoleColor.Green);
+
     return estudiantes;
   }
   public static string[]? EliminarEstudiante(int i)
   {
     if (estudiantes == null || fueDev == null || fueFac == null)
     {
-      Console.WriteLine("No hay estudiantes cargados.");
+      StyleConsole.Error("No hay estudiantes cargados.");
       return null;
     }
 
@@ -126,6 +129,7 @@ public static class EstudiantesData
     estudiantes = nuevoEstudiantes;
     fueDev = nuevoDev;
     fueFac = nuevoFac;
+    StyleConsole.WriteLine("Estudiante eliminado con éxito.", ConsoleColor.Green);
 
     return estudiantes;
   }

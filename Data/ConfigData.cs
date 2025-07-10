@@ -1,3 +1,6 @@
+using System.Drawing;
+using Ruleta.Utils;
+
 namespace Ruleta.Data;
 
 public static class ConfigData
@@ -6,9 +9,9 @@ public static class ConfigData
 
   public static string[]? ModificarRoles(string Dev, string Fac)
   {
-    if (Dev == null || Fac == null)
+    if (Dev == null || Dev.Trim() == "" || Fac == null || Fac.Trim() == "")
     {
-      Console.WriteLine("No se pudo modificar los roles. Intente nuevamente.");
+      StyleConsole.Error("Los roles no pueden estar vacíos. Intente nuevamente.");
       return null;
     }
 
@@ -20,7 +23,7 @@ public static class ConfigData
     config[0] = Dev;
     config[1] = Fac;
 
-    Console.WriteLine("Roles modificados. Presione Enter para continuar.");
+    StyleConsole.WriteLine("Roles modificados. Presione Enter para continuar.", ConsoleColor.Green);
 
     return config;
   }

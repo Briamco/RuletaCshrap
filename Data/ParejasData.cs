@@ -20,7 +20,7 @@ public static class ParejasData
   {
     if (pareja == null)
     {
-      Console.WriteLine("No se pudo crear la pareja. Intente nuevamente.");
+      StyleConsole.Error("No se pudo crear la pareja. Intente nuevamente.");
       return parejasActuales;
     }
 
@@ -45,7 +45,7 @@ public static class ParejasData
   {
     if (parejasActuales == null)
     {
-      Console.WriteLine("No hay parejas cargadas");
+      StyleConsole.Error("No hay parejas cargadas");
       return null;
     }
 
@@ -64,7 +64,7 @@ public static class ParejasData
   {
     if (parejas == null)
     {
-      Console.WriteLine("No hay historial de parejas cargado.");
+      StyleConsole.Error("No hay historial de parejas cargado.");
       return null;
     }
 
@@ -77,7 +77,7 @@ public static class ParejasData
   {
     if (parejasActuales == null)
     {
-      Console.WriteLine("No hay parejas para guardar.");
+      StyleConsole.Error("No hay parejas para guardar.");
       return;
     }
 

@@ -22,7 +22,7 @@ class RetosData
   {
     if (retos == null)
     {
-      Console.WriteLine("No hay retos cargados");
+      StyleConsole.Error("No hay retos cargados");
       return null;
     }
     if (!ValidarIndice(i)) return null;
@@ -31,9 +31,9 @@ class RetosData
   }
   public static string[]? CrearReto(string Reto)
   {
-    if (Reto == null)
+    if (Reto == null || Reto.Trim() == "")
     {
-      Console.WriteLine("No se pudo crear el reto. Intente nuevamente.");
+      StyleConsole.Error("No se pudo crear el reto. Intente nuevamente.");
       return null;
     }
 
@@ -54,6 +54,7 @@ class RetosData
     nuevoArreglo[n] = Reto;
 
     retos = nuevoArreglo;
+    StyleConsole.WriteLine("Reto agregado con éxito.", ConsoleColor.Green);
 
     return retos;
   }
@@ -61,7 +62,7 @@ class RetosData
   {
     if (retos == null)
     {
-      Console.WriteLine("No hay retos cargados.");
+      StyleConsole.Error("No hay retos cargados.");
       return null;
     }
 
@@ -74,6 +75,7 @@ class RetosData
     }
 
     retos[i] = Reto;
+    StyleConsole.WriteLine("Reto actualizado con éxito.", ConsoleColor.Green);
 
     return retos;
   }
@@ -81,7 +83,7 @@ class RetosData
   {
     if (retos == null)
     {
-      Console.WriteLine("No hay retos cargados.");
+      StyleConsole.Error("No hay retos cargados.");
       return null;
     }
 
@@ -101,6 +103,7 @@ class RetosData
     }
 
     retos = nuevoArrego;
+    StyleConsole.WriteLine("Reto eliminado con éxito.", ConsoleColor.Green);
 
     return retos;
   }

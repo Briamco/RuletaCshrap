@@ -1,4 +1,4 @@
-using Ruleta.Data;
+using Ruleta.Utils;
 
 namespace Ruleta.Services;
 
@@ -9,23 +9,28 @@ class RetoService
   {
     if (retos == null || retos.Length == 0)
     {
-      Console.WriteLine("No hay retos disponibles.");
+      StyleConsole.Title("RETOS", 30);
+      StyleConsole.Error("No hay retos disponibles.");
       return null;
     }
 
     int index = random.Next(retos.Length);
+    StyleConsole.Title("RETOS", 30);
+    StyleConsole.WriteLine($"Reto asignado: {retos[index]}", ConsoleColor.Yellow);
     return retos[index];
   }
   public static string[]? AsignarPareja(string[] parejas)
   {
     if (parejas == null || parejas.Length == 0)
     {
-      Console.WriteLine("No hay parejas disponibles.");
+      StyleConsole.Title("RULETA", 30);
+      StyleConsole.Error("No hay parejas disponibles.");
       return null;
     }
 
     int index = random.Next(parejas.Length);
-    Console.WriteLine($"Pareja asignada: {index}");
+    StyleConsole.Title("RULETA", 30);
+    StyleConsole.WriteLine($"Pareja asignada: {parejas[index]}", ConsoleColor.Cyan);
     return [parejas[index], index.ToString()];
   }
 }

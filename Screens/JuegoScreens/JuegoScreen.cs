@@ -18,7 +18,7 @@ class JuegoScreen
         ContadorMenu.MainScreen();
         break;
       default:
-        Console.WriteLine("Ninguna opcion es valida, intente nuevamente");
+        StyleConsole.Error("Ninguna opcion es valida, intente nuevamente");
         break;
     }
   }
@@ -27,9 +27,10 @@ class JuegoScreen
     while (true)
     {
       Console.Clear();
-      Console.WriteLine("1.Iniciar Ruleta");
-      Console.WriteLine("2.Contador");
-      Console.WriteLine($"{Screen.ExitInput}.Volver");
+      StyleConsole.Title("JUEGO");
+      StyleConsole.WriteLine("1. Iniciar Ruleta", ConsoleColor.Green);
+      StyleConsole.WriteLine("2. Contador", ConsoleColor.Green);
+      StyleConsole.WriteLine($"{Screen.ExitInput}. Volver", ConsoleColor.Red);
 
       int op = InputHelper.LeerOpcion();
 

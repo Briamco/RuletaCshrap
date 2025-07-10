@@ -8,9 +8,11 @@ public static class ConfigScreen
 
   public static void ModificarRoles(string[] lastConfig)
   {
-    Console.Write($"{lastConfig[0]}: ");
+    StyleConsole.Title("MODIFICAR ROLES");
+    StyleConsole.WriteLine("Ingrese los nuevos roles o presione Enter para mantener los actuales.", ConsoleColor.Cyan);
+    StyleConsole.Write($"{lastConfig[0]}: ", ConsoleColor.Green);
     string? Dev = Console.ReadLine();
-    Console.Write($"{lastConfig[1]}: ");
+    StyleConsole.Write($"{lastConfig[1]}: ", ConsoleColor.Blue);
     string? Fac = Console.ReadLine();
 
     if (Dev == null || Fac == null)
@@ -24,7 +26,7 @@ public static class ConfigScreen
   {
     if (config == null)
     {
-      Console.WriteLine("Error: Configuracion no encontrada o incompleta.");
+      StyleConsole.Error("Configuracion no encontrada o incompleta.");
       return;
     }
 
@@ -35,10 +37,10 @@ public static class ConfigScreen
         ModificarRoles(config);
         break;
       default:
-        Console.WriteLine("Ninguna opcion es valida, intente nuevamente");
+        StyleConsole.Error("Ninguna opcion es valida, intente nuevamente");
         break;
     }
-    Console.WriteLine("Presiona cualquier tecla para continuar...");
+    StyleConsole.WriteLine("Presiona cualquier tecla para continuar...", ConsoleColor.Cyan);
     Console.ReadLine();
   }
   public static void MainScreen()
@@ -46,8 +48,9 @@ public static class ConfigScreen
     while (true)
     {
       Console.Clear();
-      Console.WriteLine("1.Modificar Roles");
-      Console.WriteLine($"{Screen.ExitInput}.Volver");
+      StyleConsole.Title("CONFIGURACIÓN");
+      StyleConsole.WriteLine("1. Modificar Roles", ConsoleColor.Green);
+      StyleConsole.WriteLine($"{Screen.ExitInput}. Volver", ConsoleColor.Red);
 
       int op = InputHelper.LeerOpcion();
 

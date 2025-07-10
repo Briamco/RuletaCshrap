@@ -1,4 +1,5 @@
 using System.Text;
+using Ruleta.Utils;
 
 public static class ArchivoHelper
 {
@@ -49,14 +50,14 @@ public static class ArchivoHelper
       }
     }
 
-    Console.WriteLine($"Parejas guardadas en el archivo: {archivoNombre}");
+    StyleConsole.WriteLine($"Parejas guardadas en el archivo: {archivoNombre}", ConsoleColor.Cyan);
   }
 
   public static string[][] CargarHistorialesPorArchivo()
   {
     if (!Directory.Exists(RutaParejas))
     {
-      Console.WriteLine("No existe el directorio de Hitoriales.");
+      StyleConsole.Error("No existe el directorio de Hitoriales.");
       return new string[0][];
     }
 

@@ -21,7 +21,7 @@ class CrudsScreen
         RetosScreen.MainScreen();
         break;
       default:
-        Console.WriteLine("Ninguna opcion es valida, intente nuevamente");
+        StyleConsole.Error("Ninguna opción es válida, intente nuevamente");
         break;
     }
   }
@@ -30,10 +30,11 @@ class CrudsScreen
     while (true)
     {
       Console.Clear();
-      Console.WriteLine("1.Estudiantes");
-      Console.WriteLine("2.Historial");
-      Console.WriteLine("3.Retos");
-      Console.WriteLine($"{Screen.ExitInput}.Volver");
+      StyleConsole.Title("GESTIÓN DE DATOS", 40);
+      StyleConsole.WriteLine("1. Estudiantes", ConsoleColor.Green);
+      StyleConsole.WriteLine("2. Historial", ConsoleColor.Green);
+      StyleConsole.WriteLine("3. Retos", ConsoleColor.Green);
+      StyleConsole.WriteLine($"{Screen.ExitInput}. Volver", ConsoleColor.Red);
 
       int op = InputHelper.LeerOpcion();
 

@@ -9,7 +9,7 @@ public static class InputHelper
 
     do
     {
-      Console.Write("Ingresa un numero valido: ");
+      StyleConsole.Write("Ingresa un numero valido: ");
       input = Console.ReadLine();
     }
     while (!Int32.TryParse(input, out op));

@@ -1,5 +1,4 @@
-using System.Threading.Tasks;
-using Ruleta.Data;
+using Ruleta.Utils;
 
 namespace Ruleta.Services;
 
@@ -14,7 +13,9 @@ class ContadorService
     {
       time = $"{min:D2}:{sec:D2}:{ms:D2}";
       Console.Clear();
-      Console.WriteLine(time);
+      StyleConsole.Title("CONTADOR", 30);
+      StyleConsole.WriteLine($"Tiempo: {time}", ConsoleColor.Green);
+      StyleConsole.WriteLine("Presiona cualquier tecla para detener...", ConsoleColor.Yellow);
       Thread.Sleep(10);
       ms++;
 
@@ -41,14 +42,18 @@ class ContadorService
   {
     if (pareja == null)
     {
-      Console.WriteLine("No se pudo iniciar el contador. Intente nuevamente.");
+      StyleConsole.Title("CONTADOR", 30);
+      StyleConsole.WriteLine("No se pudo iniciar el contador. Intente nuevamente.", ConsoleColor.Red);
       return null;
     }
 
     string tiempo = Contador();
     Console.Clear();
-    Console.WriteLine("Contador iniciado!");
-    Console.WriteLine($"Pareja: {pareja}, Tiempo: {tiempo}");
+    StyleConsole.Title("CONTADOR FINALIZADO", 35);
+    StyleConsole.WriteLine("Contador detenido!", ConsoleColor.Cyan);
+    StyleConsole.WriteLine($"Pareja: {pareja}", ConsoleColor.Green);
+    StyleConsole.WriteLine($"Tiempo: {tiempo}", ConsoleColor.Yellow);
+    Console.ReadLine();
     return tiempo;
   }
 }

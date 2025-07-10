@@ -2,12 +2,7 @@ using Ruleta.Data;
 using Ruleta.Screen;
 using Ruleta.Services;
 using Ruleta.Utils;
-/*
-TODO: 
-- No se estan guardando los retos.
-- Actualizar el historial de parejas al iniciar un contador.
-- Buscar otra pereja si esta ya tiene un tiempo establecido.
-*/
+
 public static class ContadorMenu
 {
   public static string[] parejas = ParejasData.parejasActuales ?? new string[0];
@@ -18,7 +13,8 @@ public static class ContadorMenu
     string[]? parejaArray = RetoService.AsignarPareja(parejas) ?? null;
     if (parejaArray == null || parejaArray.Length == 0)
     {
-      Console.WriteLine("No hay parejas disponibles para asignar un reto.");
+      StyleConsole.Title("CONTADOR", 30);
+      StyleConsole.Error("No hay parejas disponibles para asignar un reto.");
       return;
     }
 
@@ -26,45 +22,49 @@ public static class ContadorMenu
     int i = Int32.Parse(parejaArray[1]);
     if (pareja == null || pareja.Trim() == "")
     {
-      Console.WriteLine("La pareja seleccionada está vacía.");
+      StyleConsole.Title("CONTADOR", 30);
+      StyleConsole.Error("La pareja seleccionada está vacía.");
       return;
     }
 
     string[] parejaSplit = pareja.Split(" || ");
     if (parejaSplit.Length > 1)
     {
-      Console.WriteLine("Esta pareja ya tiene un tiempo establecido.");
+      StyleConsole.Title("CONTADOR", 30);
+      StyleConsole.WriteLine("Esta pareja ya tiene un tiempo establecido.", ConsoleColor.Yellow);
       return;
     }
 
     string? retoAsignado = RetoService.AsignarReto(retos);
     if (retoAsignado == null)
     {
-      Console.WriteLine("No se pudo asignar un reto. Intente nuevamente.");
+      StyleConsole.Title("CONTADOR", 30);
+      StyleConsole.Error("No se pudo asignar un reto. Intente nuevamente.");
       return;
     }
 
-    Console.WriteLine($"Iniciando contador para la pareja: {pareja}");
-    Console.WriteLine($"Reto asignado: {retoAsignado}");
-    Console.WriteLine("Presiona cualquier tecla para comenzar el contador...");
+    StyleConsole.WriteLine("Presiona cualquier tecla para comenzar el contador...", ConsoleColor.Cyan);
     Console.ReadKey(true);
 
     string? tiempo = ContadorService.IniciarContador(pareja);
     if (tiempo == null)
     {
-      Console.WriteLine("No se pudo iniciar el contador. Intente nuevamente.");
+      StyleConsole.Title("CONTADOR", 30);
+      StyleConsole.Error("No se pudo iniciar el contador. Intente nuevamente.");
       return;
     }
 
     ParejasData.ActualizarParejaActual(i, $"{pareja} || {tiempo}");
-    Console.WriteLine("Tiempo registrado con éxito.");
+    StyleConsole.Title("CONTADOR", 30);
+    StyleConsole.WriteLine("Tiempo registrado con éxito.", ConsoleColor.Green);
   }
 
   public static void VerTabla()
   {
     if (parejas == null || parejas.Length == 0)
     {
-      Console.WriteLine("No hay parejas cargadas.");
+      StyleConsole.Title("CONTADOR", 30);
+      StyleConsole.Error("No hay parejas cargadas.");
       return;
     }
     string[][] parejasTiempo = new string[parejas.Length][];
@@ -72,15 +72,16 @@ public static class ContadorMenu
     {
       parejasTiempo[i] = parejas[i].Split(" || ");
     }
+    StyleConsole.Title("TABLA DE CONTADORES", 40);
     for (int i = 0; i < parejasTiempo.Length; i++)
     {
       if (parejasTiempo[i].Length == 2)
       {
-        Console.WriteLine($"{i}: {parejasTiempo[i][0]} || Tiempo: {parejasTiempo[i][1]}");
+        StyleConsole.WriteLine($"{i}: {parejasTiempo[i][0]} || Tiempo: {parejasTiempo[i][1]}", ConsoleColor.Green);
       }
       else
       {
-        Console.WriteLine($"{i}: {parejasTiempo[i][0]} || Tiempo: No iniciado");
+        StyleConsole.WriteLine($"{i}: {parejasTiempo[i][0]} || Tiempo: No iniciado", ConsoleColor.Yellow);
       }
     }
   }
@@ -88,9 +89,10 @@ public static class ContadorMenu
   {
     while (true)
     {
-      Console.WriteLine("1.Cargar Historial de Parejas");
-      Console.WriteLine("2.Cargar Pareja Actual");
-      Console.WriteLine($"{Screen.ExitInput}.Volver");
+      StyleConsole.Title("HISTORIAL DE PAREJAS", 40);
+      StyleConsole.WriteLine("1. Cargar Historial de Parejas", ConsoleColor.Green);
+      StyleConsole.WriteLine("2. Cargar Pareja Actual", ConsoleColor.Green);
+      StyleConsole.WriteLine($"{Screen.ExitInput}. Volver", ConsoleColor.Red);
 
       int op = InputHelper.LeerOpcion();
 
@@ -100,7 +102,7 @@ public static class ContadorMenu
       switch (op)
       {
         case 1:
-          Console.WriteLine("Escribe el indice del historial que quieres cargar");
+          StyleConsole.WriteLine("Escribe el indice del historial que quieres cargar", ConsoleColor.Cyan);
           string? iInput = Console.ReadLine();
 
           if (Int32.TryParse(iInput, out int i))
@@ -109,21 +111,21 @@ public static class ContadorMenu
 
             if (historialParejas == null || historialParejas.Length == 0)
             {
-              Console.WriteLine("No se pudo cargar el historial. Intente nuevamente.");
+              StyleConsole.WriteLine("No se pudo cargar el historial. Intente nuevamente.", ConsoleColor.Red);
               return;
             }
             parejas = historialParejas;
           }
           else
           {
-            Console.WriteLine("El valor es invalido intente nuevamente.");
+            StyleConsole.WriteLine("El valor es invalido intente nuevamente.", ConsoleColor.Red);
           }
           break;
         case 2:
           parejas = ParejasData.parejasActuales ?? new string[0];
           break;
         default:
-          Console.WriteLine("Ninguna opcion es valida, intente nuevamente");
+          StyleConsole.WriteLine("Ninguna opcion es valida, intente nuevamente", ConsoleColor.Red);
           break;
       }
       break;
@@ -147,10 +149,10 @@ public static class ContadorMenu
         CargarHistorialDePareja();
         break;
       default:
-        Console.WriteLine("Ninguna opcion es valida, intente nuevamente");
+        StyleConsole.WriteLine("Ninguna opcion es valida, intente nuevamente", ConsoleColor.Red);
         break;
     }
-    Console.WriteLine("Presiona cualquier tecla para continuar...");
+    StyleConsole.WriteLine("Presiona cualquier tecla para continuar...", ConsoleColor.Cyan);
     Console.ReadLine();
   }
   public static void MainScreen()
@@ -158,11 +160,12 @@ public static class ContadorMenu
     while (true)
     {
       Console.Clear();
-      Console.WriteLine("1.Iniciar Contador");
-      Console.WriteLine("2.Ver Tabla de Contadores");
-      Console.WriteLine("3.Ver Lista de Historiales");
-      Console.WriteLine("4.Cargar Historial de Parejas");
-      Console.WriteLine($"{Screen.ExitInput}.Volver");
+      StyleConsole.Title("CONTADOR DE PAREJAS");
+      StyleConsole.WriteLine("1. Iniciar Contador", ConsoleColor.Green);
+      StyleConsole.WriteLine("2. Ver Tabla de Contadores", ConsoleColor.Green);
+      StyleConsole.WriteLine("3. Ver Lista de Historiales", ConsoleColor.Green);
+      StyleConsole.WriteLine("4. Cargar Historial de Parejas", ConsoleColor.Green);
+      StyleConsole.WriteLine($"{Screen.ExitInput}. Volver", ConsoleColor.Red);
 
       int op = InputHelper.LeerOpcion();
 

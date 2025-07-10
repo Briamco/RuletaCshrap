@@ -1,5 +1,6 @@
 using Screens.CrudsScreen;
 using Screens.Juego;
+using Ruleta.Utils;
 
 public static class MainMenu
 {
@@ -14,17 +15,21 @@ public static class MainMenu
       case 2:
         CrudsScreen.MainScreen();
         break;
+      case 3:
+        ConfigScreen.MainScreen();
+        break;
       default:
-        Console.WriteLine("Ninguna opcion es valida, intente nuevamente");
+        StyleConsole.Error("Ninguna opcion es valida, intente nuevamente");
         break;
     }
   }
   public static void Screen(int exitInput)
   {
     Console.Clear();
-    Console.WriteLine("1.Ruleta");
-    Console.WriteLine("2.Almacenamiento de datos");
-    Console.WriteLine("5.Configuracion");
-    Console.WriteLine($"{exitInput}.Salir");
+    StyleConsole.Title("MENÚ PRINCIPAL");
+    StyleConsole.WriteLine("1. Ruleta", ConsoleColor.Green);
+    StyleConsole.WriteLine("2. Almacenamiento de datos", ConsoleColor.Green);
+    StyleConsole.WriteLine("3. Configuración", ConsoleColor.Green);
+    StyleConsole.WriteLine($"{exitInput}. Salir", ConsoleColor.Red);
   }
 }
