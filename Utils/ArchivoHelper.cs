@@ -22,11 +22,11 @@ public static class ArchivoHelper
 
   private static string[] CargarArchivo(string ruta)
   {
-    return File.Exists(ruta) ? File.ReadAllLines(ruta, Encoding.UTF8) : Array.Empty<string>();
+    return File.Exists(ruta) ? File.ReadAllLines(ruta, Encoding.UTF8) : new string[0];
   }
 
-  public static void GuardarEstudiantes(string[] estudiantes) =>
-    GuardarArchivo(RutaEstudiantes, estudiantes);
+  public static void GuardarEstudiantes(string[]? estudiantes) =>
+    GuardarArchivo(RutaEstudiantes, estudiantes ?? new string[0]);
 
   public static string[] CargarEstudiantes() =>
     CargarArchivo(RutaEstudiantes);
@@ -46,7 +46,7 @@ public static class ArchivoHelper
     if (!Directory.Exists(RutaParejas))
     {
       StyleConsole.Error("No existe el directorio de Historiales.");
-      return Array.Empty<string[]>();
+      return new string[0][];
     }
 
     string[] archivos = Directory.GetFiles(RutaParejas, "historial_*.txt");
@@ -63,7 +63,7 @@ public static class ArchivoHelper
   }
 
   public static void GuardarRetos(string[]? retos) =>
-    GuardarArchivo(RutaRetos, retos ?? Array.Empty<string>());
+    GuardarArchivo(RutaRetos, retos ?? new string[0]);
 
   public static string[] CargarRetos() =>
     CargarArchivo(RutaRetos);
