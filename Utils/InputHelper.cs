@@ -11,6 +11,7 @@ public static class InputHelper
     {
       StyleConsole.Write("Ingresa un numero valido: ");
       input = Console.ReadLine();
+      Sound.PopSound();
     }
     while (!Int32.TryParse(input, out op));
 

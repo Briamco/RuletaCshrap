@@ -9,6 +9,8 @@ class ContadorService
     string time;
     int min = 0, sec = 0, ms = 0;
 
+    Sound.ClockSound();
+
     while (true)
     {
       time = $"{min:D2}:{sec:D2}:{ms:D2}";
@@ -33,6 +35,8 @@ class ContadorService
 
       if (Console.KeyAvailable)
       {
+        Sound.StopClock();
+        Sound.StopClockSound();
         break;
       }
     }
