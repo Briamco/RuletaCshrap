@@ -29,7 +29,7 @@ public static class ConfigData
   }
   public static void CargarCongif()
   {
-    config = ArchivoHelper.CargarCongif();
+    config = ArchivoHelper.CargarConfig();
   }
   public static void GuardarConfig()
   {
