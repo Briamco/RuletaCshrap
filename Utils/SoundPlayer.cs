@@ -23,7 +23,7 @@ class Sound
     }
     catch (Exception ex)
     {
-      Console.WriteLine($"Error al reproducir el sonido: {ex.Message}");
+      StyleConsole.Error($"Error al reproducir el sonido: {ex.Message}");
     }
   }
 
@@ -44,7 +44,7 @@ class Sound
     }
     catch (Exception ex)
     {
-      Console.WriteLine($"Error al detener el sonido: {ex.Message}");
+      StyleConsole.Error($"Error al detener el sonido: {ex.Message}");
     }
   }
 
