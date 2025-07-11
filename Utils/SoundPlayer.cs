@@ -1,0 +1,65 @@
+using System.Media;
+
+namespace Ruleta.Utils;
+
+class Sound
+{
+  public static void PlaySound(string soundFilePath, bool loop = false)
+  {
+    if (string.IsNullOrEmpty(soundFilePath))
+    {
+      throw new ArgumentException("El archivo de sonido no puede ser nulo o vacío.", nameof(soundFilePath));
+    }
+
+    try
+    {
+      if (OperatingSystem.IsWindows())
+      {
+        SoundPlayer player = new SoundPlayer(soundFilePath);
+        player.Load();
+        if (loop) player.PlayLooping();
+        else player.Play();
+      }
+    }
+    catch (Exception ex)
+    {
+      Console.WriteLine($"Error al reproducir el sonido: {ex.Message}");
+    }
+  }
+
+  public static void StopSound(string soundFilePath)
+  {
+    if (string.IsNullOrEmpty(soundFilePath))
+    {
+      throw new ArgumentException("El archivo de sonido no puede ser nulo o vacío.", nameof(soundFilePath));
+    }
+
+    try
+    {
+      if (OperatingSystem.IsWindows())
+      {
+        SoundPlayer player = new SoundPlayer(soundFilePath);
+        player.Stop();
+      }
+    }
+    catch (Exception ex)
+    {
+      Console.WriteLine($"Error al detener el sonido: {ex.Message}");
+    }
+  }
+
+  public static void PopSound() =>
+    PlaySound("Media/Sound/pop-1.wav");
+
+  public static void RuletaSound() =>
+    PlaySound("Media/Sound/Spinning-Wheel-Sound-Effect.wav");
+
+  public static void ClockSound() =>
+    PlaySound("Media/Sound/Old-Clock-sound-effect.wav", true);
+
+  public static void StopClock() =>
+  StopSound("Media/Sound/Old-Clock-sound-effect.wav");
+
+  public static void StopClockSound() =>
+    PlaySound("Media/Sound/SHOT-CLOCK-SOUND-EFFECT-HD-_-_NO-COPYRIGHT_.wav");
+}
