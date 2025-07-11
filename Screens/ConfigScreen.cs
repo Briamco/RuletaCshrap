@@ -10,10 +10,8 @@ public static class ConfigScreen
   {
     StyleConsole.Title("MODIFICAR ROLES");
     StyleConsole.WriteLine("Ingrese los nuevos roles o presione Enter para mantener los actuales.", ConsoleColor.Cyan);
-    StyleConsole.Write($"{lastConfig[0]}: ", ConsoleColor.Green);
-    string? Dev = Console.ReadLine();
-    StyleConsole.Write($"{lastConfig[1]}: ", ConsoleColor.Blue);
-    string? Fac = Console.ReadLine();
+    string? Dev = InputHelper.LeerTexto($"{lastConfig[0]}: ", ConsoleColor.Green);
+    string? Fac = InputHelper.LeerTexto($"{lastConfig[1]}: ", ConsoleColor.Blue);
 
     if (Dev == null || Fac == null)
     {
@@ -40,8 +38,7 @@ public static class ConfigScreen
         StyleConsole.Error("Ninguna opcion es valida, intente nuevamente");
         break;
     }
-    StyleConsole.WriteLine("Presiona cualquier tecla para continuar...", ConsoleColor.Cyan);
-    Console.ReadLine();
+    InputHelper.Continuar();
   }
   public static void MainScreen()
   {

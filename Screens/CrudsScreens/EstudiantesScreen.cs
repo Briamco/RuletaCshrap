@@ -17,49 +17,43 @@ public static class EstudiantesMenu
     StyleConsole.Title("LISTA DE ESTUDIANTES", 40);
     for (int i = 0; i < estudiantes.Length; i++)
     {
-      StyleConsole.WriteLine($"{i}: {estudiantes[i]}", ConsoleColor.Green);
+      StyleConsole.WriteLine($"{i + 1}: {estudiantes[i]}", ConsoleColor.Green);
     }
   }
   public static void AgregarEstudiante()
   {
     StyleConsole.Title("AGREGAR ESTUDIANTE", 30);
     StyleConsole.WriteLine("Escribe los datos necesarios para crear el estudiante", ConsoleColor.Cyan);
-    StyleConsole.Write("Nombre:", ConsoleColor.Yellow);
-    string nombre = Console.ReadLine()!;
+    string nombre = InputHelper.LeerTexto("Nombre");
+    if (nombre == null || nombre.Trim() == "")
+    {
+      StyleConsole.Error("El nombre no puede estar vacío.");
+      return;
+    }
     estudiantes = EstudiantesData.AgregarEstudiante(nombre) ?? new string[0];
   }
   public static void ActualizarEstudiante()
   {
     StyleConsole.Title("ACTUALIZAR ESTUDIANTE", 30);
-    StyleConsole.Write("Índice del estudiante:", ConsoleColor.Cyan);
-    string? iInput = Console.ReadLine();
+    int? i = InputHelper.LeerNumero("Índice del estudiante", ConsoleColor.Cyan) - 1;
 
-    if (Int32.TryParse(iInput, out int i))
+    string? estudiante = EstudiantesData.CargarEstudiantePorIndice(i.Value);
+    if (estudiante == null)
     {
-      string? estudiante = EstudiantesData.CargarEstudiantePorIndice(i);
-      if (estudiante == null)
-      {
-        StyleConsole.Error("No se encontró el estudiante para actualizar.");
-        return;
-      }
-      StyleConsole.Write($"Nombre ({estudiante}):", ConsoleColor.Yellow);
-      string nombre = Console.ReadLine()!;
-      if (nombre == null || nombre.Trim() == "") nombre = estudiante;
-      estudiantes = EstudiantesData.ActualizarEstudiante(i, nombre) ?? new string[0];
+      StyleConsole.Error("No se encontró el estudiante para actualizar.");
+      return;
     }
-    else StyleConsole.Error("El valor es invalido intente nuevamente.");
+    string nombre = InputHelper.LeerTexto($"Nombre ({estudiante})");
+    if (nombre == null || nombre.Trim() == "") nombre = estudiante;
+    estudiantes = EstudiantesData.ActualizarEstudiante(i.Value, nombre) ?? new string[0];
+
   }
   public static void EliminarEstudiante()
   {
     StyleConsole.Title("ELIMINAR ESTUDIANTE", 30);
-    StyleConsole.WriteLine("Índice del estudiante:", ConsoleColor.Cyan);
-    string? iInput = Console.ReadLine();
+    int? i = InputHelper.LeerNumero("Índice del estudiante", ConsoleColor.Cyan) - 1;
 
-    if (Int32.TryParse(iInput, out int i))
-    {
-      estudiantes = EstudiantesData.EliminarEstudiante(i) ?? new string[0];
-    }
-    else StyleConsole.Error("El valor es invalido intente nuevamente.");
+    estudiantes = EstudiantesData.EliminarEstudiante(i.Value) ?? new string[0];
   }
 
   public static void Navigator(int op)
@@ -83,8 +77,7 @@ public static class EstudiantesMenu
         StyleConsole.Error("Ninguna opción es válida, intente nuevamente");
         break;
     }
-    StyleConsole.WriteLine("Presiona cualquier tecla para continuar...", ConsoleColor.Cyan);
-    Console.ReadLine();
+    InputHelper.Continuar();
   }
   public static void MainScreen()
   {

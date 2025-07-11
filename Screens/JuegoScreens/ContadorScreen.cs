@@ -102,24 +102,16 @@ public static class ContadorMenu
       switch (op)
       {
         case 1:
-          StyleConsole.WriteLine("Escribe el indice del historial que quieres cargar", ConsoleColor.Cyan);
-          string? iInput = Console.ReadLine();
+          int? i = InputHelper.LeerNumero("Escribe el indice del historial que quieres cargar", ConsoleColor.Cyan);
 
-          if (Int32.TryParse(iInput, out int i))
-          {
-            string[]? historialParejas = ParejasData.CargarParejaPorIndice(i);
+          string[]? historialParejas = ParejasData.CargarParejaPorIndice(i.Value);
 
-            if (historialParejas == null || historialParejas.Length == 0)
-            {
-              StyleConsole.WriteLine("No se pudo cargar el historial. Intente nuevamente.", ConsoleColor.Red);
-              return;
-            }
-            parejas = historialParejas;
-          }
-          else
+          if (historialParejas == null || historialParejas.Length == 0)
           {
-            StyleConsole.WriteLine("El valor es invalido intente nuevamente.", ConsoleColor.Red);
+            StyleConsole.WriteLine("No se pudo cargar el historial. Intente nuevamente.", ConsoleColor.Red);
+            return;
           }
+          parejas = historialParejas;
           break;
         case 2:
           parejas = ParejasData.parejasActuales ?? new string[0];
@@ -152,8 +144,7 @@ public static class ContadorMenu
         StyleConsole.WriteLine("Ninguna opcion es valida, intente nuevamente", ConsoleColor.Red);
         break;
     }
-    StyleConsole.WriteLine("Presiona cualquier tecla para continuar...", ConsoleColor.Cyan);
-    Console.ReadLine();
+    InputHelper.Continuar();
   }
   public static void MainScreen()
   {

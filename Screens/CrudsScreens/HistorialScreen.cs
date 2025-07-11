@@ -4,42 +4,39 @@ using Ruleta.Utils;
 
 public static class HistorialScreen
 {
-  public static string[][] parejas = ParejasData.parejas ?? new string[0][];
+  public static string[][] historial = ParejasData.parejas ?? new string[0][];
   public static void ListaDeHistoriales()
   {
-    if (parejas == null || parejas.Length == 0)
+    if (historial == null || historial.Length == 0)
     {
       StyleConsole.Title("HISTORIALES", 30);
       StyleConsole.Error("No hay estudiantes cargados.");
       return;
     }
     StyleConsole.Title("LISTA DE HISTORIALES", 40);
-    for (int i = 0; i < parejas.Length; i++)
+    for (int i = 0; i < historial.Length; i++)
     {
-      StyleConsole.WriteLine($"{i}: historial_{i}", ConsoleColor.Green);
+      StyleConsole.WriteLine($"{i + 1}: historial_{i}", ConsoleColor.Green);
     }
   }
   public static void VerHistorial()
   {
     StyleConsole.Title("VER HISTORIAL", 30);
     StyleConsole.Write("Índice del historial:", ConsoleColor.Cyan);
-    string? iInput = Console.ReadLine();
+    int? i = InputHelper.LeerNumero("Índice del historial", ConsoleColor.Cyan) - 1;
 
-    if (Int32.TryParse(iInput, out int i))
+    string[]? parejas = ParejasData.CargarParejaPorIndice(i.Value) ?? new string[0];
+    if (parejas.Length == 0)
     {
-      string[]? parejas = ParejasData.CargarParejaPorIndice(i) ?? new string[0];
-      if (parejas.Length == 0)
-      {
-        StyleConsole.Error("No se encontró el historial.");
-        return;
-      }
-      StyleConsole.Title($"HISTORIAL {i}", 40);
-      for (int j = 0; j < parejas.Length; j++)
-      {
-        StyleConsole.WriteLine($"{j}: {parejas[j]}", ConsoleColor.Green);
-      }
+      StyleConsole.Error("No se encontró el historial.");
+      return;
     }
-    else StyleConsole.Error("El valor es invalido intente nuevamente.");
+    StyleConsole.Title($"HISTORIAL {i}", 40);
+    for (int j = 0; j < parejas.Length; j++)
+    {
+      StyleConsole.WriteLine($"{j + 1}: {parejas[j]}", ConsoleColor.Green);
+    }
+
   }
   public static void VerHistorialActual()
   {
@@ -53,7 +50,7 @@ public static class HistorialScreen
     StyleConsole.Title("HISTORIAL ACTUAL", 40);
     for (int i = 0; i < parejas.Length; i++)
     {
-      StyleConsole.WriteLine($"{i}: {parejas[i]}", ConsoleColor.Green);
+      StyleConsole.WriteLine($"{i + 1}: {parejas[i]}", ConsoleColor.Green);
     }
   }
   public static void Navigator(int op)
