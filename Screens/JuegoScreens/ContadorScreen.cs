@@ -7,6 +7,7 @@ public static class ContadorMenu
 {
   public static string[] parejas = ParejasData.parejasActuales ?? new string[0];
   public static string[]? retos = RetosData.retos ?? new string[0];
+  public static int iHis = -1;
 
   public static void IniciarConteo()
   {
@@ -54,7 +55,12 @@ public static class ContadorMenu
       return;
     }
 
-    ParejasData.ActualizarParejaActual(i, $"{pareja} || {tiempo}");
+    if (iHis == -1) parejas = ParejasData.ActualizarParejaActual(i, $"{pareja} || {tiempo}") ?? new string[0];
+    else
+    {
+      parejas = ParejasData.ActualizarPareja(iHis, i, $"{pareja} || {tiempo}") ?? new string[0];
+      ParejasData.GuardarParejasPasadas(iHis);
+    }
     StyleConsole.Title("CONTADOR", 30);
     StyleConsole.WriteLine("Tiempo registrado con éxito.", ConsoleColor.Green);
   }
@@ -105,6 +111,7 @@ public static class ContadorMenu
           int? i = InputHelper.LeerNumero("Escribe el indice del historial que quieres cargar", ConsoleColor.Cyan);
 
           string[]? historialParejas = ParejasData.CargarParejaPorIndice(i.Value);
+          iHis = i.Value;
 
           if (historialParejas == null || historialParejas.Length == 0)
           {

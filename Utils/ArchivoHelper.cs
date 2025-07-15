@@ -41,6 +41,9 @@ public static class ArchivoHelper
     StyleConsole.WriteLine($"Parejas guardadas en el archivo: {archivoNombre}", ConsoleColor.Cyan);
   }
 
+  public static void GuardarParejasPasadas(string[] parejas, int i) =>
+    GuardarArchivo($"{RutaParejas}/historial_{i}.txt", parejas);
+
   public static string[][] CargarHistorialesPorArchivo()
   {
     if (!Directory.Exists(RutaParejas))

@@ -46,13 +46,39 @@ public static class ParejasData
     if (parejasActuales == null)
     {
       StyleConsole.Error("No hay parejas cargadas");
-      return null;
+      return new string[0];
     }
 
-    if (!ValidarIndiceActuales(i)) return null;
+    if (!ValidarIndiceActuales(i)) return new string[0];
 
     parejasActuales[i] = nuevaPareja;
     return parejasActuales;
+  }
+
+  public static string[]? ActualizarPareja(int iHis, int iPar, string nuevaPareja)
+  {
+    if (parejas == null)
+    {
+      StyleConsole.Error("No hay parejas cargadas");
+      return new string[0];
+    }
+
+    if (!ValidarIndiceHistorial(iHis)) return new string[0];
+
+    parejas[iHis][iPar] = nuevaPareja;
+
+    return parejas[iHis];
+  }
+
+  public static void GuardarParejasPasadas(int i)
+  {
+    if (parejas == null)
+    {
+      StyleConsole.Error("No hay parejas cargadas");
+      return;
+    }
+
+    ArchivoHelper.GuardarParejasPasadas(parejas[i], i);
   }
 
   public static void CargarParejas()
