@@ -74,14 +74,20 @@ public static class RuletaService
       fueDev[i1] = true;
       fueFac[i2] = true;
 
+
       Console.Clear();
       StyleConsole.Title("PAREJA ASIGNADA", 35);
-      StyleConsole.WriteLine($"{estudiantes[i1]}: {RolDev}", ConsoleColor.Green);
-      StyleConsole.WriteLine($"{estudiantes[i2]}: {RolFac}", ConsoleColor.Cyan);
+
+      AnimationHelper.LoopAnimation(estudiantes, estudiantes[i1], ConsoleColor.Green);
+      StyleConsole.WriteLine($": {RolDev}", ConsoleColor.Green);
+      InputHelper.Continuar("Presiona cualquier tecla para seguir con la seleccion...");
+
+      AnimationHelper.LoopAnimation(estudiantes, estudiantes[i2], ConsoleColor.Cyan);
+      StyleConsole.WriteLine($": {RolFac}", ConsoleColor.Cyan);
 
       ParejasData.AgregarPareja($"{estudiantes[i1]}, {RolDev} - {estudiantes[i2]}, {RolFac}");
 
-      StyleConsole.Write("\nPresiona Enter para continuar o escribe 'salir' para terminar.", ConsoleColor.Yellow);
+      StyleConsole.WriteLine("\nPresiona Enter para continuar o escribe 'salir' para terminar.", ConsoleColor.Yellow);
       string? input = Console.ReadLine();
       if (input?.ToLower() == "salir") break;
     }

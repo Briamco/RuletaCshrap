@@ -1,3 +1,4 @@
+using System.Drawing;
 using Ruleta.Utils;
 
 namespace Ruleta.Services;
@@ -16,7 +17,9 @@ class RetoService
 
     int index = random.Next(retos.Length);
     StyleConsole.Title("RETOS", 30);
-    StyleConsole.WriteLine($"Reto asignado: {retos[index]}", ConsoleColor.Yellow);
+    StyleConsole.WriteLine("Reto asignado:", ConsoleColor.Cyan);
+    AnimationHelper.LoopAnimation(retos, retos[index], ConsoleColor.Yellow);
+    Console.WriteLine();
     return retos[index];
   }
   public static string[]? AsignarPareja(string[] parejas)
@@ -29,8 +32,12 @@ class RetoService
     }
 
     int index = random.Next(parejas.Length);
+    string[] pareja = parejas[index].Split(" || ");
+
     StyleConsole.Title("RULETA", 30);
-    StyleConsole.WriteLine($"Pareja asignada: {parejas[index]}", ConsoleColor.Cyan);
-    return [parejas[index], index.ToString()];
+    StyleConsole.WriteLine("Pareja asignada:", ConsoleColor.Cyan);
+    AnimationHelper.LoopAnimation(parejas, pareja[0], ConsoleColor.Green);
+    Console.WriteLine();
+    return [parejas[index], $"{index}"];
   }
 }

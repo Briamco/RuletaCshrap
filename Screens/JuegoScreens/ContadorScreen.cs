@@ -12,6 +12,7 @@ public static class ContadorMenu
   public static void IniciarConteo()
   {
     string[]? parejaArray = RetoService.AsignarPareja(parejas) ?? null;
+    if (parejaArray != null) InputHelper.Continuar();
     if (parejaArray == null || parejaArray.Length == 0)
     {
       StyleConsole.Title("CONTADOR", 30);

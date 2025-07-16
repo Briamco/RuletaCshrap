@@ -52,7 +52,7 @@ class Sound
     PlaySound("Media/Sound/pop-1.wav");
 
   public static void RuletaSound() =>
-    PlaySound("Media/Sound/Spinning-Wheel-Sound-Effect.wav");
+    PlaySound("Media/Sound/spinner.WAV");
 
   public static void ClockSound() =>
     PlaySound("Media/Sound/Old-Clock-sound-effect.wav", true);
@@ -61,5 +61,5 @@ class Sound
   StopSound("Media/Sound/Old-Clock-sound-effect.wav");
 
   public static void StopClockSound() =>
-    PlaySound("Media/Sound/SHOT-CLOCK-SOUND-EFFECT-HD-_-_NO-COPYRIGHT_.wav");
+    PlaySound("Media/Sound/Shot_clock.WAV");
 }

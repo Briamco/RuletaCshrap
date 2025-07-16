@@ -49,9 +49,9 @@ public static class InputHelper
     return numero;
   }
 
-  public static void Continuar()
+  public static void Continuar(string text = "Presiona cualquier tecla para continuar...")
   {
-    StyleConsole.WriteLine("Presiona cualquier tecla para continuar...", ConsoleColor.Cyan);
+    StyleConsole.WriteLine(text, ConsoleColor.Cyan);
     Console.ReadKey();
   }
 }
