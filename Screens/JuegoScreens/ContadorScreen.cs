@@ -11,6 +11,8 @@ public static class ContadorMenu
 
   public static void IniciarConteo()
   {
+    StyleConsole.Title("CONTADOR", 30);
+
     string[]? parejaArray = RetoService.AsignarPareja(parejas) ?? null;
     if (parejaArray != null) InputHelper.Continuar();
     if (parejaArray == null || parejaArray.Length == 0)
@@ -99,6 +101,7 @@ public static class ContadorMenu
       StyleConsole.Title("HISTORIAL DE PAREJAS", 40);
       StyleConsole.WriteLine("1. Cargar Historial de Parejas", ConsoleColor.Green);
       StyleConsole.WriteLine("2. Cargar Pareja Actual", ConsoleColor.Green);
+      StyleConsole.WriteLine("3. Mostrar historial de parejas", ConsoleColor.Green);
       StyleConsole.WriteLine($"{Screen.ExitInput}. Volver", ConsoleColor.Red);
 
       int op = InputHelper.LeerOpcion();
@@ -122,7 +125,12 @@ public static class ContadorMenu
           parejas = historialParejas;
           break;
         case 2:
+          iHis = -1;
           parejas = ParejasData.parejasActuales ?? new string[0];
+          StyleConsole.WriteLine("Parejas actuales cargada.", ConsoleColor.Green);
+          break;
+        case 3:
+          HistorialScreen.ListaDeHistoriales();
           break;
         default:
           StyleConsole.WriteLine("Ninguna opcion es valida, intente nuevamente", ConsoleColor.Red);
@@ -143,9 +151,6 @@ public static class ContadorMenu
         VerTabla();
         break;
       case 3:
-        HistorialScreen.ListaDeHistoriales();
-        break;
-      case 4:
         CargarHistorialDePareja();
         break;
       default:
@@ -162,8 +167,7 @@ public static class ContadorMenu
       StyleConsole.Title("CONTADOR DE PAREJAS");
       StyleConsole.WriteLine("1. Iniciar Contador", ConsoleColor.Green);
       StyleConsole.WriteLine("2. Ver Tabla de Contadores", ConsoleColor.Green);
-      StyleConsole.WriteLine("3. Ver Lista de Historiales", ConsoleColor.Green);
-      StyleConsole.WriteLine("4. Cargar Historial de Parejas", ConsoleColor.Green);
+      StyleConsole.WriteLine("3. Cargar Historial de Parejas", ConsoleColor.Green);
       StyleConsole.WriteLine($"{Screen.ExitInput}. Volver", ConsoleColor.Red);
 
       int op = InputHelper.LeerOpcion();
