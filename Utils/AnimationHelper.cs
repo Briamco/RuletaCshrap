@@ -32,6 +32,8 @@ class AnimationHelper
   }
   public static void LoopAnimation(string[] arr, string selected, ConsoleColor endColor = ConsoleColor.Yellow, bool sound = true, double duracion = 9)
   {
+    bool skip = false;
+
     ConsoleColor[] colores = { ConsoleColor.Blue, ConsoleColor.Yellow, ConsoleColor.Green, ConsoleColor.Red, ConsoleColor.Magenta };
     int counter = 0;
     DateTime endTime = DateTime.Now.AddSeconds(duracion);
@@ -54,10 +56,17 @@ class AnimationHelper
 
       counter++;
       Thread.Sleep(delay);
+
+      if (Console.KeyAvailable && InputHelper.LeerTecla(ConsoleKey.Spacebar))
+      {
+        Sound.StopSound();
+        skip = true;
+        break;
+      }
     }
 
     string resultadoFinal = selected.PadRight(maxLength);
     StyleConsole.Write($"\r{resultadoFinal}", endColor);
-    Thread.Sleep(1000 * 2);
+    if (!skip) Thread.Sleep(1000 * 2);
   }
 }

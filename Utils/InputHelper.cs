@@ -54,5 +54,10 @@ public static class InputHelper
     StyleConsole.WriteLine(text, ConsoleColor.Cyan);
     Console.ReadKey();
   }
+  public static bool LeerTecla(ConsoleKey key)
+  {
+    var keyInfo = Console.ReadKey(intercept: true);
+    return keyInfo.Key == key;
+  }
 }
 

@@ -35,7 +35,7 @@ class ContadorService
 
       if (Console.KeyAvailable)
       {
-        Sound.StopClock();
+        Sound.StopSound();
         Sound.StopClockSound();
         break;
       }

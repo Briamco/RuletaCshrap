@@ -27,18 +27,13 @@ class Sound
     }
   }
 
-  public static void StopSound(string soundFilePath)
+  public static void StopSound()
   {
-    if (string.IsNullOrEmpty(soundFilePath))
-    {
-      throw new ArgumentException("El archivo de sonido no puede ser nulo o vacío.", nameof(soundFilePath));
-    }
-
     try
     {
       if (OperatingSystem.IsWindows())
       {
-        SoundPlayer player = new SoundPlayer(soundFilePath);
+        SoundPlayer player = new SoundPlayer();
         player.Stop();
       }
     }
@@ -54,11 +49,11 @@ class Sound
   public static void RuletaSound() =>
     PlaySound("Media/Sound/spinner.WAV");
 
+  public static void StopRuletaSound() =>
+    PlaySound("Media/Sound/spinner.WAV");
+
   public static void ClockSound() =>
     PlaySound("Media/Sound/Old-Clock-sound-effect.wav", true);
-
-  public static void StopClock() =>
-  StopSound("Media/Sound/Old-Clock-sound-effect.wav");
 
   public static void StopClockSound() =>
     PlaySound("Media/Sound/Shot_clock.WAV");

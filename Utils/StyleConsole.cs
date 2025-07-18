@@ -10,7 +10,7 @@ namespace Ruleta.Utils
       string bottom = "╚" + new string('═', ancho - 2) + "╝";
       string middle = "║" + titulo.PadLeft((ancho - 2 + titulo.Length) / 2).PadRight(ancho - 2) + "║";
       Console.ForegroundColor = ConsoleColor.Cyan;
-      Console.WriteLine(top);
+      Console.WriteLine($"\r{top}");
       Console.WriteLine(middle);
       Console.WriteLine(bottom);
       Console.ResetColor();
