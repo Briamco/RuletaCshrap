@@ -7,6 +7,7 @@ public static class RuletaService
 {
   private static string RolDev = ConfigData.config?[0] ?? "Desarrollador en Vivo";
   private static string RolFac = ConfigData.config?[1] ?? "Facilitador";
+  private static Random random = new Random();
 
   public static void IniciarRuleta()
   {
@@ -23,7 +24,6 @@ public static class RuletaService
     bool[] fueDev = EstudiantesData.fueDev ?? new bool[total];
     bool[] fueFac = EstudiantesData.fueFac ?? new bool[total];
 
-    Random random = new Random();
 
     while (true)
     {

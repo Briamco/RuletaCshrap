@@ -21,7 +21,7 @@ public static class ContadorMenu
     }
 
     string pareja = parejaArray[0] ?? "";
-    int i = Int32.Parse(parejaArray[1]);
+    int i = int.Parse(parejaArray[1]);
     if (pareja == null || pareja.Trim() == "")
     {
       StyleConsole.Title("CONTADOR", 30);

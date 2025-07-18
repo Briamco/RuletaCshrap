@@ -1,5 +1,3 @@
-using System.Runtime.CompilerServices;
-
 namespace Ruleta.Utils;
 
 class AnimationHelper
@@ -15,6 +13,12 @@ class AnimationHelper
       StyleConsole.Write(".");
       counter++;
       Thread.Sleep(100);
+
+      if (Console.KeyAvailable && InputHelper.LeerTecla(ConsoleKey.Spacebar))
+      {
+        Sound.StopSound();
+        break;
+      }
     }
   }
   public static void SpinnerAnimation(double duracion)
@@ -28,7 +32,14 @@ class AnimationHelper
       StyleConsole.Write($"\r{spinner[counter % spinner.Length]}");
       counter++;
       Thread.Sleep(100);
+
+      if (Console.KeyAvailable && InputHelper.LeerTecla(ConsoleKey.Spacebar))
+      {
+        Sound.StopSound();
+        break;
+      }
     }
+
   }
   public static void LoopAnimation(string[] arr, string selected, ConsoleColor endColor = ConsoleColor.Yellow, bool sound = true, double duracion = 9)
   {

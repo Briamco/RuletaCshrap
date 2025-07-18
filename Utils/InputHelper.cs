@@ -13,7 +13,7 @@ public static class InputHelper
       input = Console.ReadLine();
       Sound.PopSound();
     }
-    while (!Int32.TryParse(input, out op));
+    while (!int.TryParse(input, out op));
 
     return op;
   }
@@ -44,7 +44,7 @@ public static class InputHelper
       input = Console.ReadLine();
       Sound.PopSound();
     }
-    while (!Int32.TryParse(input, out numero));
+    while (!int.TryParse(input, out numero));
 
     return numero;
   }
