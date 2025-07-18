@@ -22,14 +22,10 @@ public class Screen
         string? confirm = Console.ReadLine()?.Trim().ToUpper();
         if (confirm == "S")
         {
-          StyleConsole.Title("GUARDANDO DATOS", 40);
-          StyleConsole.WriteLine("Guardando estudiantes...", ConsoleColor.Cyan);
+          AnimationHelper.LoadingAnimation("Guardando datos", 1.5);
           EstudiantesData.GuardarEstudiantes();
-          StyleConsole.WriteLine("Guardando parejas...", ConsoleColor.Cyan);
           ParejasData.GuardarParejas();
-          StyleConsole.WriteLine("Guardando configuración...", ConsoleColor.Cyan);
           ConfigData.GuardarConfig();
-          StyleConsole.WriteLine("Guardando retos...", ConsoleColor.Cyan);
           RetosData.GuardarRetos();
           StyleConsole.Title("SALIENDO DEL PROGRAMA", 40);
           StyleConsole.WriteLine("¡Hasta pronto!", ConsoleColor.Green);

@@ -38,7 +38,6 @@ public static class ArchivoHelper
     int numero = archivos.Length;
     string archivoNombre = Path.Combine(RutaParejas, $"historial_{numero}.txt");
     GuardarArchivo(archivoNombre, parejas);
-    StyleConsole.WriteLine($"Parejas guardadas en el archivo: {archivoNombre}", ConsoleColor.Cyan);
   }
 
   public static void GuardarParejasPasadas(string[] parejas, int i) =>

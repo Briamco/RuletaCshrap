@@ -25,12 +25,12 @@ internal class Program
 `---'       `--`----'              `----'                 `----'                           
                                                                                            
 ", ConsoleColor.Cyan);
-    AnimationHelper.LoadingAnimation(1.5);
-
     if (!OperatingSystem.IsWindows())
     {
       StyleConsole.Error("No se podran reproducir los sonidos en este sistema operativo.");
     }
+
+    AnimationHelper.LoadingAnimation("Cargando", 1.5);
 
     EstudiantesData.CargarEstudiantes();
     ParejasData.CargarParejas();
@@ -38,5 +38,6 @@ internal class Program
     RetosData.CargarRetos();
 
     Screen.ScreenMain();
+    Console.ResetColor();
   }
 }

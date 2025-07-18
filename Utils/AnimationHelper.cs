@@ -4,12 +4,12 @@ namespace Ruleta.Utils;
 
 class AnimationHelper
 {
-  public static void LoadingAnimation(double duracion)
+  public static void LoadingAnimation(string text, double duracion)
   {
     int counter = 0;
     DateTime endTIme = DateTime.Now.AddSeconds(duracion);
 
-    StyleConsole.Write("Cargando");
+    StyleConsole.Write(text);
     while (DateTime.Now < endTIme)
     {
       StyleConsole.Write(".");
